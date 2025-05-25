@@ -136,8 +136,10 @@
     file
     flatpak
     git
+    git-credential-manager
     iw
     gnumake
+    libsecret
     neo-cowsay
     neovim
     nil
