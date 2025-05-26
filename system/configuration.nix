@@ -21,12 +21,14 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
     # List of allowed unfree packages
     "discord"
-    "zerotierone"
     "spotify"
     "steam"
     "steam-original"
     "steam-unwrapped"
     "steam-run"
+    "zerotierone"
+    "zoom"
+    "zoom-us"
   ];
 
   # Package settings (from https://nixos.wiki/wiki/Steam)
@@ -163,6 +165,7 @@
     wl-clipboard
     zerotierone
     zfs
+    zoom-us
   ];
 
   # Aliases
