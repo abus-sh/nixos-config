@@ -21,6 +21,8 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
     # List of allowed unfree packages
     "discord"
+    "nvidia-settings"
+    "nvidia-x11"
     "spotify"
     "steam"
     "steam-original"
@@ -95,6 +97,11 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Graphics settings
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
+
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -148,6 +155,7 @@
     nmap
     p7zip
     plocate
+    python313
     ripgrep
     sl
     spotify
