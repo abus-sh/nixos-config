@@ -150,6 +150,7 @@
   environment.systemPackages = with pkgs; [
     cowsay
     curl
+    direnv
     discord
     dos2unix
     ffmpeg
