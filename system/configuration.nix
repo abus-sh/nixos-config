@@ -197,6 +197,7 @@
     lla = "ls -lA";
     llah = "ls -lAh";
     code = "codium";
+    vim = "nvim";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
