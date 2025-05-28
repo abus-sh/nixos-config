@@ -166,6 +166,7 @@
     nmap
     p7zip
     plocate
+    protonvpn-gui
     python313
     ripgrep
     sl
