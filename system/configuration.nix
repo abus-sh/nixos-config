@@ -179,7 +179,6 @@
     tshark
     virtualbox
     vlc
-    vscodium
     whois
     wireshark
     wget
@@ -187,6 +186,15 @@
     zerotierone
     zfs
     zoom-us
+
+    # VS Code extensions
+    (vscode-with-extensions.override {
+      vscode = vscodium;
+      vscodeExtensions = with vscode-extensions; [
+        mkhl.direnv
+        jnoortheen.nix-ide
+      ];
+    })
   ];
 
   # Aliases
