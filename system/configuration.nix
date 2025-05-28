@@ -163,7 +163,6 @@
     libsecret
     neo-cowsay
     neovim
-    nil
     nmap
     p7zip
     plocate
