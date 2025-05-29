@@ -21,8 +21,8 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
     # List of allowed unfree packages
     "discord"
-    "nvidia-settings"
-    "nvidia-x11"
+    #"nvidia-settings"
+    #"nvidia-x11"
     "spotify"
     "steam"
     "steam-original"
@@ -98,15 +98,13 @@
   services.printing.enable = true;
 
   # Graphics settings
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;
-  hardware.nvidia.prime = {
-    sync.enable = true;
-
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
+  #hardware.graphics.enable = true;
+  #services.xserver.videoDrivers = [ "nvidia" ];
+  #hardware.nvidia.open = true;
+  #hardware.nvidia.prime = {
+  #  intelBusId = "PCI:0:2:0";
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
