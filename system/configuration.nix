@@ -176,6 +176,7 @@
     tree
     traceroute
     tshark
+    unixtools.xxd
     virtualbox
     vlc
     whois
