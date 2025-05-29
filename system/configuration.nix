@@ -23,6 +23,7 @@
     "discord"
     #"nvidia-settings"
     #"nvidia-x11"
+    "obsidian"
     "spotify"
     "steam"
     "steam-original"
@@ -162,6 +163,7 @@
     neo-cowsay
     neovim
     nmap
+    obsidian
     p7zip
     plocate
     protonvpn-gui
@@ -233,4 +235,10 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 
+  # TODO: enable automatic updates
+  #system.autoUpgrade.enable = true;
+  #system.autoUpgrade.flags = [
+  #  "-I"
+  #  "nixos-config=/home/abus/.nixos/system/configuration.nix"
+  #];
 }
