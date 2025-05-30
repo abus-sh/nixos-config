@@ -34,12 +34,18 @@
     "zoom-us"
   ];
 
-  # Package settings (from https://nixos.wiki/wiki/Steam)
+  # Steam settings (from https://nixos.wiki/wiki/Steam)
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+  };
+
+  # locate settings
+  services.locate = {
+    enable = true;
+    package = pkgs.plocate;
   };
 
   # Flatpak and add FlatHub repo (from https://nixos.wiki/wiki/Flatpak)
@@ -138,6 +144,11 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Define custom groups
+  users.groups = {
+    plocate = {};
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.abus = {
     isNormalUser = true;
@@ -165,8 +176,9 @@
     flatpak
     git
     git-credential-manager
-    iw
     gnumake
+    iw
+    jq
     libva-utils
     libsecret
     neo-cowsay
@@ -175,7 +187,6 @@
     obsidian
     p7zip
     pciutils
-    plocate
     protonvpn-gui
     python313
     ripgrep
