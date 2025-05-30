@@ -21,8 +21,8 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
     # List of allowed unfree packages
     "discord"
-    #"nvidia-settings"
-    #"nvidia-x11"
+    "nvidia-settings"
+    "nvidia-x11"
     "obsidian"
     "spotify"
     "steam"
@@ -100,12 +100,20 @@
 
   # Graphics settings
   #hardware.graphics.enable = true;
-  #services.xserver.videoDrivers = [ "nvidia" ];
-  #hardware.nvidia.open = true;
-  #hardware.nvidia.prime = {
-  #  intelBusId = "PCI:0:2:0";
-  #  nvidiaBusId = "PCI:1:0:0";
-  #};
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      #intel-vaapi-driver
+      #libvdpau-va-gl
+    ];
+  };
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
+  hardware.nvidia.prime = {
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -159,12 +167,14 @@
     git-credential-manager
     iw
     gnumake
+    libva-utils
     libsecret
     neo-cowsay
     neovim
     nmap
     obsidian
     p7zip
+    pciutils
     plocate
     protonvpn-gui
     python313
@@ -206,6 +216,11 @@
     llah = "ls -lAh";
     code = "codium";
     vim = "nvim";
+  };
+
+  # Environment variables
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
