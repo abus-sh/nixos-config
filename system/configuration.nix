@@ -110,16 +110,17 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      #intel-vaapi-driver
-      #libvdpau-va-gl
+      intel-vaapi-driver
+      libvdpau-va-gl
+      nvidia-vaapi-driver
     ];
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;
-  hardware.nvidia.prime = {
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
+  services.xserver.videoDrivers = [ "intel" ];
+  #hardware.nvidia.open = true;
+  #hardware.nvidia.prime = {
+  #  intelBusId = "PCI:0:2:0";
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
