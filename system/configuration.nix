@@ -180,6 +180,7 @@
     gnumake
     iw
     jq
+    kdePackages.kcalc
     libva-utils
     libsecret
     neo-cowsay
