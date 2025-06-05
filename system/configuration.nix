@@ -24,6 +24,7 @@
     "nvidia-settings"
     "nvidia-x11"
     "obsidian"
+    #"Oracle_VirtualBox_Extension_Pack"
     "spotify"
     "steam"
     "steam-original"
@@ -148,6 +149,9 @@
   # Define custom groups
   users.groups = {
     plocate = {};
+    vboxusers = {
+      members = [ "abus" ];
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -202,7 +206,6 @@
     traceroute
     tshark
     unixtools.xxd
-    virtualbox
     vlc
     whois
     wireshark
@@ -236,6 +239,14 @@
   # Environment variables
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
+  };
+
+  # Enable VirtualBox
+  virtualisation.virtualbox = {
+    host = {
+      enable = true;
+      #enableExtensionPack = true;
+    };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
