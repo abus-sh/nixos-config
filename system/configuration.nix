@@ -169,6 +169,7 @@
   environment.systemPackages = with pkgs; [
     cowsay
     curl
+    dig
     direnv
     discord
     dos2unix
@@ -195,6 +196,7 @@
     sl
     spotify
     sqlite
+    tor-browser
     tmux
     tree
     traceroute
