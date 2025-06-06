@@ -180,6 +180,7 @@
     ffmpeg
     file
     flatpak
+    ghidra
     git
     git-credential-manager
     gnumake
@@ -262,11 +263,17 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  # Allow TCP and UDP traffic on VirtualBox interface
+  networking.firewall.interfaces.vboxnet0 = {
+    allowedTCPPortRanges = [{
+      from = 0;
+      to = 65535;
+    }];
+    allowedUDPPortRanges = [{
+      from = 0;
+      to = 65535;
+    }];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
