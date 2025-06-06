@@ -184,9 +184,12 @@
     git
     git-credential-manager
     gnumake
+    hunspell
+    hunspellDicts.en_US
     iw
     jq
     kdePackages.kcalc
+    libreoffice-qt6-fresh
     libva-utils
     libsecret
     neo-cowsay
