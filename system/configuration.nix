@@ -212,6 +212,7 @@
     traceroute
     tshark
     unixtools.xxd
+    unrar-wrapper
     vlc
     whois
     wireshark
