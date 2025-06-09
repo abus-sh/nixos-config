@@ -21,6 +21,7 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
     # List of allowed unfree packages
     "discord"
+    "ida-free"
     "nvidia-settings"
     "nvidia-x11"
     "obsidian"
@@ -186,6 +187,7 @@
     gnumake
     hunspell
     hunspellDicts.en_US
+    ida-free
     iw
     jq
     kdePackages.kcalc
