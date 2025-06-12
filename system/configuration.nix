@@ -172,6 +172,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    bintools
     cowsay
     curl
     dig
@@ -218,7 +219,6 @@
     wireshark
     wget
     wl-clipboard
-    zerotierone
     zfs
     zoom-us
 
@@ -254,6 +254,11 @@
       enable = true;
       #enableExtensionPack = true;
     };
+  };
+
+  # ZeroTier
+  services.zerotierone = {
+    enable = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
