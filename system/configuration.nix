@@ -42,6 +42,9 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    protontricks = {
+      enable = true;
+    };
   };
 
   # locate settings
@@ -117,12 +120,12 @@
       nvidia-vaapi-driver
     ];
   };
-  services.xserver.videoDrivers = [ "intel" ];
-  #hardware.nvidia.open = true;
-  #hardware.nvidia.prime = {
-  #  intelBusId = "PCI:0:2:0";
-  #  nvidiaBusId = "PCI:1:0:0";
-  #};
+  services.xserver.videoDrivers = [ "intel" "nvidia" ];
+  hardware.nvidia.open = true;
+  hardware.nvidia.prime = {
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -226,8 +229,9 @@
     (vscode-with-extensions.override {
       vscode = vscodium;
       vscodeExtensions = with vscode-extensions; [
-        mkhl.direnv
         jnoortheen.nix-ide
+        mkhl.direnv
+        rust-lang.rust-analyzer
       ];
     })
   ];
