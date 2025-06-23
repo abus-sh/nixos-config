@@ -162,7 +162,7 @@
   users.users.abus = {
     isNormalUser = true;
     description = "Abus";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -204,13 +204,14 @@
     obsidian
     p7zip
     pciutils
+    prismlauncher
     protonvpn-gui
     python313
     ripgrep
     sl
     spotify
     sqlite
-    tor-browser
+    #tor-browser
     tmux
     tree
     traceroute
@@ -259,6 +260,9 @@
       #enableExtensionPack = true;
     };
   };
+
+  # Enable Docker
+  virtualisation.docker.enable = true;
 
   # ZeroTier
   services.zerotierone = {
