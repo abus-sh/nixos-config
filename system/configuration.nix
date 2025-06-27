@@ -204,6 +204,7 @@
     obsidian
     p7zip
     pciutils
+    pinentry-qt
     prismlauncher
     protonvpn-gui
     python313
@@ -267,6 +268,14 @@
   # ZeroTier
   services.zerotierone = {
     enable = true;
+  };
+
+  # GPG
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-qt;
+    enableSSHSupport = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
