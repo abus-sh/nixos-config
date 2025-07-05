@@ -20,6 +20,7 @@
   # Nixpkgs settings
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
     # List of allowed unfree packages
+    "corefonts"
     "discord"
     "ida-free"
     "nvidia-settings"
@@ -169,6 +170,11 @@
     ];
   };
 
+  # Fonts
+  fonts.packages = with pkgs; [
+    corefonts
+  ];
+
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -176,6 +182,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     bintools
+    cargo-expand
     cowsay
     curl
     dig
@@ -185,6 +192,7 @@
     ffmpeg
     file
     flatpak
+    gcc
     ghidra
     git
     git-credential-manager
@@ -209,6 +217,8 @@
     protonvpn-gui
     python313
     ripgrep
+    rustup
+    rust-analyzer
     sl
     spotify
     sqlite
@@ -234,6 +244,7 @@
         jnoortheen.nix-ide
         mkhl.direnv
         rust-lang.rust-analyzer
+        vadimcn.vscode-lldb
       ];
     })
   ];
