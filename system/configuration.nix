@@ -302,6 +302,13 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
+  # Allow TCP traffic on port 8000 for Python http.server
+  networking.firewall.interfaces.wlp0s20f3 = {
+    allowedTCPPorts = [
+      8000
+    ];
+  };
+
   # Allow TCP and UDP traffic on VirtualBox interface
   networking.firewall.interfaces.vboxnet0 = {
     allowedTCPPortRanges = [{
