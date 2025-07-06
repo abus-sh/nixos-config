@@ -181,6 +181,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    archipelago
     bintools
     cargo-expand
     cowsay
@@ -234,6 +235,7 @@
     wireshark
     wget
     wl-clipboard
+    xdg-utils
     zfs
     zoom-us
 
@@ -251,12 +253,13 @@
 
   # Aliases
   environment.shellAliases = {
+    code = "codium";
     la = "ls -A";
     ll = "ls -l";
     llh = "ls -lh";
     lla = "ls -lA";
     llah = "ls -lAh";
-    code = "codium";
+    open = "xdg-open";
     vim = "nvim";
   };
 
