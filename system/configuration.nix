@@ -224,6 +224,7 @@
     sl
     spotify
     sqlite
+    taskwarrior3
     #tor-browser
     tmux
     tree
@@ -231,6 +232,7 @@
     tshark
     unixtools.xxd
     unrar-wrapper
+    vit
     vlc
     whois
     wireshark
