@@ -121,12 +121,13 @@
       nvidia-vaapi-driver
     ];
   };
-  services.xserver.videoDrivers = [ "intel" "nvidia" ];
-  hardware.nvidia.open = true;
-  hardware.nvidia.prime = {
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
+  services.xserver.videoDrivers = [ "intel" ];
+  #services.xserver.videoDrivers = [ "intel" "nvidia" ];
+  #hardware.nvidia.open = true;
+  #hardware.nvidia.prime = {
+  #  intelBusId = "PCI:0:2:0";
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
