@@ -164,7 +164,7 @@
   users.users.abus = {
     isNormalUser = true;
     description = "Abus";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -202,16 +202,19 @@
     hunspell
     hunspellDicts.en_US
     ida-free
+    imhex
     iw
     jq
     kdePackages.kcalc
     libreoffice-qt6-fresh
     libva-utils
     libsecret
+    mkcert
     neo-cowsay
     neovim
     nmap
     obsidian
+    openssl
     p7zip
     pciutils
     pinentry-qt
@@ -246,10 +249,13 @@
     (vscode-with-extensions.override {
       vscode = vscodium;
       vscodeExtensions = with vscode-extensions; [
+        dbaeumer.vscode-eslint
+        editorconfig.editorconfig
         jnoortheen.nix-ide
         mkhl.direnv
         rust-lang.rust-analyzer
         vadimcn.vscode-lldb
+        vue.volar
       ];
     })
   ];
