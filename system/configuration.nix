@@ -27,6 +27,7 @@
     "nvidia-x11"
     "obsidian"
     #"Oracle_VirtualBox_Extension_Pack"
+    "postman"
     "spotify"
     "steam"
     "steam-original"
