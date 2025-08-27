@@ -218,6 +218,7 @@
     p7zip
     pciutils
     pinentry-qt
+    postman
     prismlauncher
     protonvpn-gui
     python313
