@@ -22,7 +22,7 @@
     # List of allowed unfree packages
     "corefonts"
     "discord"
-    "ida-free"
+    #"ida-free"
     "nvidia-settings"
     "nvidia-x11"
     "obsidian"
@@ -201,7 +201,7 @@
     gnumake
     hunspell
     hunspellDicts.en_US
-    ida-free
+    #ida-free
     imhex
     iw
     jq
@@ -253,6 +253,10 @@
         editorconfig.editorconfig
         jnoortheen.nix-ide
         mkhl.direnv
+        ms-pyright.pyright
+        ms-python.debugpy
+        ms-python.python
+        ms-toolsai.jupyter
         rust-lang.rust-analyzer
         vadimcn.vscode-lldb
         vue.volar
