@@ -191,6 +191,7 @@
     dig
     direnv
     discord
+    docker-credential-helpers
     dos2unix
     ffmpeg
     file
