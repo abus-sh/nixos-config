@@ -374,4 +374,18 @@
   #  "-I"
   #  "nixos-config=/home/abus/.nixos/system/configuration.nix"
   #];
+
+  specialisation = {
+    gpu.configuration = {
+      system.nixos.tags = [ "gpu" ];
+      #services.xserver.videoDrivers = [ "intel" "nvidia" ];
+      services.xserver.videoDrivers = [ "nvidia" ];
+      #hardware.nvidia.open = true;
+      hardware.nvidia.modesetting.enable = true;
+      #hardware.nvidia.prime = {
+      #  intelBusId = "PCI:0:2:0";
+      #  nvidiaBusId = "PCI:1:0:0";
+      #};
+    };
+  };
 }
