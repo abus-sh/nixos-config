@@ -112,14 +112,13 @@
   services.printing.enable = true;
 
   # Graphics settings
-  #hardware.graphics.enable = true;
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
       intel-vaapi-driver
       libvdpau-va-gl
-      nvidia-vaapi-driver
+      #nvidia-vaapi-driver
     ];
   };
   services.xserver.videoDrivers = [ "intel" ];
@@ -378,14 +377,25 @@
   specialisation = {
     gpu.configuration = {
       system.nixos.tags = [ "gpu" ];
-      #services.xserver.videoDrivers = [ "intel" "nvidia" ];
       services.xserver.videoDrivers = [ "nvidia" ];
-      #hardware.nvidia.open = true;
+      hardware.nvidia.open = true;
       hardware.nvidia.modesetting.enable = true;
       #hardware.nvidia.prime = {
       #  intelBusId = "PCI:0:2:0";
       #  nvidiaBusId = "PCI:1:0:0";
       #};
+
+      boot.initrd.availableKernelModules = [
+        "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm"
+      ];
+
+      hardware.graphics = {
+        enable = true;
+        extraPackages = with pkgs; [
+          libvdpau-va-gl
+          nvidia-vaapi-driver
+        ];
+      };
     };
   };
 }
