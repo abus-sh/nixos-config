@@ -194,6 +194,7 @@
       obs-backgroundremoval
       obs-gstreamer
       obs-livesplit-one
+      obs-pipewire-audio-capture
       obs-vaapi
       obs-vkcapture
       wlrobs
