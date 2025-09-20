@@ -193,6 +193,7 @@
     plugins = with pkgs.obs-studio-plugins; [
       obs-backgroundremoval
       obs-gstreamer
+      obs-livesplit-one
       obs-vaapi
       obs-vkcapture
       wlrobs
@@ -228,6 +229,7 @@
     jq
     kdePackages.kcalc
     libreoffice-qt6-fresh
+    libresplit
     libva-utils
     libsecret
     mkcert
