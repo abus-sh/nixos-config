@@ -15,7 +15,6 @@ if [[ "$VERSION" =~ "-" ]]; then
     # Based on https://blog.jefferyb.dev/awk-display-all-fields-except-the-last/
     SPEC="$(echo $VERSION | awk 'BEGIN{FS=OFS="-"}{NF--; print}')"
 
-    #FLAGS="${FLAGS} -c ${SPEC}"
     append_flag "-c ${SPEC}"
 fi
 
