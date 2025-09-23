@@ -237,6 +237,7 @@
     neo-cowsay
     neovim
     nmap
+    obs-cmd
     obsidian
     openssl
     p7zip
