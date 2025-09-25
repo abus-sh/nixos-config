@@ -138,6 +138,12 @@
   #  nvidiaBusId = "PCI:1:0:0";
   #};
 
+  # Scanner config
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -173,7 +179,7 @@
   users.users.abus = {
     isNormalUser = true;
     description = "Abus";
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "scanner" "lp" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
