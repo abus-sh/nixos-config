@@ -14,6 +14,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Allow emulating other architectures
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "riscv64-linux"
+  ];
+
+  # UEFI firmware support
+  systemd.tmpfiles.rules = [ "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware" ];
+
   # Nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -247,6 +256,8 @@
     prismlauncher
     protonvpn-gui
     python313
+    qemu
+    quickemu
     ripgrep
     rustup
     rust-analyzer
