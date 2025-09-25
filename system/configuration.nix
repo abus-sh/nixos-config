@@ -229,6 +229,7 @@
     discord
     docker-credential-helpers
     dos2unix
+    element-desktop
     ffmpeg
     file
     flatpak
