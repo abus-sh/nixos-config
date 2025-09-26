@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { lib, pkgs, ... }:
 let
   nix-vscode-extensions-src = import (
@@ -41,11 +37,9 @@ in
     # List of allowed unfree packages
     "corefonts"
     "discord"
-    #"ida-free"
     "nvidia-settings"
     "nvidia-x11"
     "obsidian"
-    #"Oracle_VirtualBox_Extension_Pack"
     "postman"
     "spotify"
     "steam"
@@ -85,12 +79,7 @@ in
   };
 
   boot.initrd.luks.devices."luks-c9c4f91d-d176-43ad-b136-02b228cd15d1".device = "/dev/disk/by-uuid/c9c4f91d-d176-43ad-b136-02b228cd15d1";
-  networking.hostName = "abusmachine"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "abusmachine";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -137,16 +126,9 @@ in
       intel-media-driver
       intel-vaapi-driver
       libvdpau-va-gl
-      #nvidia-vaapi-driver
     ];
   };
   services.xserver.videoDrivers = [ "intel" ];
-  #services.xserver.videoDrivers = [ "intel" "nvidia" ];
-  #hardware.nvidia.open = true;
-  #hardware.nvidia.prime = {
-  #  intelBusId = "PCI:0:2:0";
-  #  nvidiaBusId = "PCI:1:0:0";
-  #};
 
   # Scanner config
   hardware.sane.enable = true;
@@ -162,20 +144,11 @@ in
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define custom groups
   users.groups = {
@@ -185,7 +158,7 @@ in
     };
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account.
   users.users.abus = {
     isNormalUser = true;
     description = "Abus";
@@ -226,8 +199,6 @@ in
     ];
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     archipelago
     bintools
@@ -251,7 +222,6 @@ in
     gnumake
     hunspell
     hunspellDicts.en_US
-    #ida-free
     imhex
     iw
     jq
@@ -282,7 +252,6 @@ in
     spotify
     sqlite
     taskwarrior3
-    #tor-browser
     tmux
     tree
     traceroute
@@ -358,19 +327,6 @@ in
     enableSSHSupport = true;
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
   # Allow TCP traffic on port 8000 for Python http.server
   networking.firewall.interfaces.wlp0s20f3 = {
     allowedTCPPorts = [
@@ -411,10 +367,6 @@ in
       services.xserver.videoDrivers = [ "nvidia" ];
       hardware.nvidia.open = true;
       hardware.nvidia.modesetting.enable = true;
-      #hardware.nvidia.prime = {
-      #  intelBusId = "PCI:0:2:0";
-      #  nvidiaBusId = "PCI:1:0:0";
-      #};
 
       boot.initrd.availableKernelModules = [
         "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm"
