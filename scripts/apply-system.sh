@@ -18,6 +18,21 @@ if [[ "$VERSION" =~ "-" ]]; then
     append_flag "-c ${SPEC}"
 fi
 
+# Handle arguments to the script
+# Based on https://superuser.com/a/186279
+while test $# -gt 0
+do
+    case "$1" in
+        --upgrade) append_flag "--upgrade"
+            ;;
+        --*) echo "Bad option: $1"
+            ;;
+        #*) echo "Argument $1"
+        #    ;;
+    esac
+    shift
+done
+
 # Make sure the right directory is used. If run as root, $SUDO_HOME will point to the right location, not $HOME.
 DIR="${SUDO_HOME:-$HOME}"
 
