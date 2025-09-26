@@ -3,7 +3,16 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { lib, pkgs, ... }:
-
+let
+  nix-vscode-extensions-src = import (
+    builtins.fetchGit {
+      url = "https://github.com/nix-community/nix-vscode-extensions";
+      ref = "refs/heads/master";
+      rev = "bc962fe29193fa4b851dfaac2bfb968e33287211";
+    }
+  );
+  nix-vscode-extensions = nix-vscode-extensions-src.extensions.${builtins.currentSystem};
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -222,6 +231,7 @@
   environment.systemPackages = with pkgs; [
     archipelago
     bintools
+    cargo
     cargo-expand
     cowsay
     curl
@@ -267,7 +277,6 @@
     qemu
     quickemu
     ripgrep
-    rustup
     rust-analyzer
     sl
     spotify
@@ -293,58 +302,17 @@
     # VS Code extensions
     (vscode-with-extensions.override {
       vscode = vscodium;
-      vscodeExtensions = with vscode-extensions; [
+      vscodeExtensions = with nix-vscode-extensions.open-vsx; [
+        dbaeumer.vscode-eslint
+        editorconfig.editorconfig
+        jnoortheen.nix-ide
+        mkhl.direnv
+        ms-pyright.pyright
+        ms-python.debugpy
+        ms-python.python
         ms-toolsai.jupyter
-        vadimcn.vscode-lldb
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "debugpy";
-          publisher = "ms-python";
-          version = "2025.13.2025091201";
-          hash = "sha256-ZGXvzAo6ZKJUukdjgJAu5kXfg8MApa7RukNISAW1/+E=";
-        }
-        {
-          name = "direnv";
-          publisher = "mkhl";
-          version = "0.17.0";
-          hash = "sha256-9sFcfTMeLBGw2ET1snqQ6Uk//D/vcD9AVsZfnUNrWNg=";
-        }
-        {
-          name = "editorconfig";
-          publisher = "editorconfig";
-          version = "0.17.4";
-          hash = "sha256-MYPYhSKAxgaZ0UijxU+xiO4HDPLtXGymhN+2YmTev8M=";
-        }
-        {
-          name = "nix-ide";
-          publisher = "jnoortheen";
-          version = "0.4.23";
-          hash = "sha256-MnuFMrP52CcWZTyf2OKSqQ/oqCS3PPivwEIja25N2D0=";
-        }
-        {
-          name = "pyright";
-          publisher = "ms-pyright";
-          version = "1.1.405";
-          hash = "sha256-2UULr/D2ym5kBhbexl6U0r3dugZUuU+ks8FFfCi1A2k=";
-        }
-        {
-          name = "python";
-          publisher = "ms-python";
-          version = "2025.15.2025092201";
-          hash = "sha256-6ov6JwjntYN2jQjRXlM/yE4z5J2ClLtJPTEqnONfuFQ=";
-        }
-        {
-          name = "rust-analyzer";
-          publisher = "rust-lang";
-          version = "0.4.2625";
-          hash = "sha256-7kkDHaTBWL4d0qoi/BGv2ZF8Zo7EwsNsLSueldIvN/s=";
-        }
-        {
-          name = "vscode-eslint";
-          publisher = "dbaeumer";
-          version = "3.0.19";
-          hash = "sha256-rpYgvo5H1RBviV5L/pfDWqVXIYaZonRiqh4TLFGEODw=";
-        }
+      ] ++ [
+        vscode-extensions.rust-lang.rust-analyzer
       ];
     })
   ];
