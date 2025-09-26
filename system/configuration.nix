@@ -299,7 +299,7 @@
           name = "debugpy";
           publisher = "ms-python";
           version = "2025.13.2025091201";
-          hash = "sha256-QLVAL4zVLK2EnrzPMHOGMGwJIPMTRco/qacGNPokFFI=";
+          hash = "sha256-ZGXvzAo6ZKJUukdjgJAu5kXfg8MApa7RukNISAW1/+E=";
         }
         {
           name = "direnv";
