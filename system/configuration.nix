@@ -293,7 +293,8 @@
     (vscode-with-extensions.override {
       vscode = vscodium;
       vscodeExtensions = with vscode-extensions; [
-        
+        ms-toolsai.jupyter
+        vadimcn.vscode-lldb
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "debugpy";
@@ -312,12 +313,6 @@
           publisher = "editorconfig";
           version = "0.17.4";
           hash = "sha256-MYPYhSKAxgaZ0UijxU+xiO4HDPLtXGymhN+2YmTev8M=";
-        }
-        {
-          name = "jupyter";
-          publisher = "ms-toolsai";
-          version = "2025.9.2025092201";
-          hash = "sha256-XV7hsUfdd6LNwZy/vkgWEOVVSkVO8qsrPRrPXgfwQRk=";
         }
         {
           name = "nix-ide";
@@ -348,12 +343,6 @@
           publisher = "dbaeumer";
           version = "3.0.19";
           hash = "sha256-rpYgvo5H1RBviV5L/pfDWqVXIYaZonRiqh4TLFGEODw=";
-        }
-        {
-          name = "vscode-lldb";
-          publisher = "vadimcn";
-          version = "1.11.5";
-          hash = "sha256-AtUNfk2AFJ6NZnIRlnPXXXO8IluyI2/kg7UxQHrWg+w=";
         }
       ];
     })
