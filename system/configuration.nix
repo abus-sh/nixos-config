@@ -142,7 +142,7 @@
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.sane-airscan ];
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
