@@ -293,17 +293,68 @@
     (vscode-with-extensions.override {
       vscode = vscodium;
       vscodeExtensions = with vscode-extensions; [
-        dbaeumer.vscode-eslint
-        editorconfig.editorconfig
-        jnoortheen.nix-ide
-        mkhl.direnv
-        ms-pyright.pyright
-        ms-python.debugpy
-        ms-python.python
-        ms-toolsai.jupyter
-        rust-lang.rust-analyzer
-        vadimcn.vscode-lldb
-        vue.volar
+        
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "debugpy";
+          publisher = "ms-python";
+          version = "2025.13.2025091201";
+          hash = "sha256-QLVAL4zVLK2EnrzPMHOGMGwJIPMTRco/qacGNPokFFI=";
+        }
+        {
+          name = "direnv";
+          publisher = "mkhl";
+          version = "0.17.0";
+          hash = "sha256-9sFcfTMeLBGw2ET1snqQ6Uk//D/vcD9AVsZfnUNrWNg=";
+        }
+        {
+          name = "editorconfig";
+          publisher = "editorconfig";
+          version = "0.17.4";
+          hash = "sha256-MYPYhSKAxgaZ0UijxU+xiO4HDPLtXGymhN+2YmTev8M=";
+        }
+        {
+          name = "jupyter";
+          publisher = "ms-toolsai";
+          version = "2025.9.2025092201";
+          hash = "sha256-XV7hsUfdd6LNwZy/vkgWEOVVSkVO8qsrPRrPXgfwQRk=";
+        }
+        {
+          name = "nix-ide";
+          publisher = "jnoortheen";
+          version = "0.4.23";
+          hash = "sha256-MnuFMrP52CcWZTyf2OKSqQ/oqCS3PPivwEIja25N2D0=";
+        }
+        {
+          name = "pyright";
+          publisher = "ms-pyright";
+          version = "1.1.405";
+          hash = "sha256-2UULr/D2ym5kBhbexl6U0r3dugZUuU+ks8FFfCi1A2k=";
+        }
+        {
+          name = "python";
+          publisher = "ms-python";
+          version = "2025.15.2025092201";
+          hash = "sha256-6ov6JwjntYN2jQjRXlM/yE4z5J2ClLtJPTEqnONfuFQ=";
+        }
+        {
+          name = "rust-analyzer";
+          publisher = "rust-lang";
+          version = "0.4.2625";
+          hash = "sha256-7kkDHaTBWL4d0qoi/BGv2ZF8Zo7EwsNsLSueldIvN/s=";
+        }
+        {
+          name = "vscode-eslint";
+          publisher = "dbaeumer";
+          version = "3.0.19";
+          hash = "sha256-rpYgvo5H1RBviV5L/pfDWqVXIYaZonRiqh4TLFGEODw=";
+        }
+        {
+          name = "vscode-lldb";
+          publisher = "vadimcn";
+          version = "1.11.5";
+          hash = "sha256-AtUNfk2AFJ6NZnIRlnPXXXO8IluyI2/kg7UxQHrWg+w=";
+        }
       ];
     })
   ];
