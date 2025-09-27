@@ -8,6 +8,8 @@ Options:
   -h, --help        Display this help message and exit.
   -n, --name [NAME] The name of the config that will be used. Defaults to the
                     hostname of the current computer if not specified.
+      --no-spec     Do not switch to a specialisation.
+  -s, --spec [SPEC] The name of the specialisation to switch to.
       --upgrade     Passes "--upgrade" to nixos-rebuild.
       --upgrade-all Passes "--upgrade-all" to nixos-rebuild.
 EOF
@@ -28,6 +30,26 @@ handle_name() {
     echo "TODO: figure out flag to pass to use the given hostname"
 }
 
+handle_no_spec() {
+    # Guard to prevent multiple cases of --spec or --no-spec
+    if [ -n "$SPEC_SET" ]; then
+        echo "Specialisation may not be set multiple times."
+        usage 1
+    fi
+    SPEC_SET=1
+}
+
+handle_spec() {
+    # Guard to prevent multiple cases of --spec or --no-spec
+    if [ -n "$SPEC_SET" ]; then
+        echo "Specialisation may not be set multiple times."
+        usage 1
+    fi
+    SPEC_SET=1
+
+    SPEC="$1"
+}
+
 handle_upgrade() {
     append_flag "--upgrade"
 }
@@ -46,10 +68,13 @@ while [ "$#" -gt 0 ]; do
     # Short names
     -h) usage; shift 1;;
     -n) handle_name "$2"; shift 2 2>/dev/null;;
+    -s) handle_spec "$2"; shift 2 2>/dev/null;;
 
     # Long names
     --help) usage; shift 1;;
     --name) handle_name "$2"; shift 2 2>/dev/null;;
+    --no-spec) handle_no_spec; shift 1;;
+    --spec) handle_spec "$2"; shift 2 2>/dev/null;;
     --upgrade) handle_upgrade; shift 1;;
     --upgrade-all) handle_upgrade_all; shift 1;;
     
@@ -62,13 +87,18 @@ while [ "$#" -gt 0 ]; do
   fi
 done
 
-# Conditionally append flag to keep the current specialisation
-VERSION="$(cat /run/current-system/nixos-version)"
-if [[ "$VERSION" =~ "-" ]]; then
-    # Get all but last field (ex. the version info)
-    # Based on https://blog.jefferyb.dev/awk-display-all-fields-except-the-last/
-    SPEC="$(echo $VERSION | awk 'BEGIN{FS=OFS="-"}{NF--; print}')"
+# Detect if neither --spec nor --no-spec have been supplied, set SPEC if so
+if [[ -z "$SPEC_SET" ]]; then
+    VERSION="$(cat /run/current-system/nixos-version)"
 
+    if [[ "$VERSION" =~ "-" ]]; then
+        # Get all but last field (ex. the version info)
+        # Based on https://blog.jefferyb.dev/awk-display-all-fields-except-the-last/
+        SPEC="$(echo $VERSION | awk 'BEGIN{FS=OFS="-"}{NF--; print}')"
+    fi
+fi
+
+if [[ -n "$SPEC" ]]; then
     append_flag "-c ${SPEC}"
 fi
 
