@@ -7,7 +7,7 @@ let
       rev = "bc962fe29193fa4b851dfaac2bfb968e33287211";
     }
   );
-  nix-vscode-extensions = nix-vscode-extensions-src.extensions.${builtins.currentSystem};
+  nix-vscode-extensions = nix-vscode-extensions-src.extensions.x86_64-linux;
 in
 {
   imports =

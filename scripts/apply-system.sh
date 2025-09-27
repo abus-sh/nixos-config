@@ -26,8 +26,7 @@ handle_name() {
         echo "Name may not be set multiple times."
         usage 1
     fi
-    name="$1"
-    echo "TODO: figure out flag to pass to use the given hostname"
+    NAME="$1"
 }
 
 handle_no_spec() {
@@ -58,9 +57,6 @@ handle_upgrade_all() {
     append_flag "--upgrade-all"
 }
 
-# Append flag for the location of the system configuration
-append_flag "-I nixos-config=./system/configuration.nix"
-
 # Handle arguments to the script
 # Based on https://stackoverflow.com/a/31443098
 while [ "$#" -gt 0 ]; do
@@ -86,6 +82,9 @@ while [ "$#" -gt 0 ]; do
     usage 1
   fi
 done
+
+# Append the flag with the name
+append_flag "--flake ./system#$NAME"
 
 # Detect if neither --spec nor --no-spec have been supplied, set SPEC if so
 if [[ -z "$SPEC_SET" ]]; then
