@@ -147,5 +147,5 @@ fi
 
 # Based on https://www.youtube.com/watch?v=Dy3KHMuDNS8
 pushd $DIR/.nixos
-echo sudo nixos-rebuild switch $FLAGS
+sudo nixos-rebuild switch $FLAGS
 popd
