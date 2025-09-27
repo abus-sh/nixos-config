@@ -5,7 +5,7 @@
   outputs = { self, nixpkgs }: {
     nixosConfigurations.abusmachine = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [ ./configuration.nix ];
+      modules = [ ./machines/abusmachine/configuration.nix ];
     };
   };
 }
