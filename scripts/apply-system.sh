@@ -6,8 +6,10 @@ Usage: $0 [OPTIONS]
 
 Options:
   -h, --help        Display this help message and exit.
+  -m, --message     The Git commit message to use.
   -n, --name [NAME] The name of the config that will be used. Defaults to the
                     hostname of the current computer if not specified.
+      --no-commit   Skip adding a Git commit.
       --no-spec     Do not switch to a specialisation.
   -s, --spec [SPEC] The name of the specialisation to switch to.
       --upgrade     Passes "--upgrade" to nixos-rebuild.
@@ -21,12 +23,34 @@ append_flag () {
     FLAGS="${FLAGS} ${1}"
 }
 
+handle_message() {
+    # Guard to prevent multiple cases of --message or --no-commit
+    if [ -n "$COMMIT_SET" ]; then
+        echo "Commit message may not be set multiple times."
+        usage 1
+    fi
+    COMMIT_SET=1
+
+    COMMIT_MSG="$1"
+}
+
 handle_name() {
     if [ -n "$name" ]; then
         echo "Name may not be set multiple times."
         usage 1
     fi
     NAME="$1"
+}
+
+handle_no_commit() {
+    # Guard to prevent multiple cases of --message or --no-commit
+    if [ -n "$COMMIT_SET" ]; then
+        echo "Commit message may not be set multiple times."
+        usage 1
+    fi
+    COMMIT_SET=1
+
+    NO_COMMIT=1
 }
 
 handle_no_spec() {
@@ -63,12 +87,15 @@ while [ "$#" -gt 0 ]; do
   case "$1" in
     # Short names
     -h) usage; shift 1;;
+    -m) handle_message "$2"; shift 2 2>/dev/null;;
     -n) handle_name "$2"; shift 2 2>/dev/null;;
     -s) handle_spec "$2"; shift 2 2>/dev/null;;
 
     # Long names
     --help) usage; shift 1;;
+    --message) handle_message "$2"; shift 2 2>/dev/null;;
     --name) handle_name "$2"; shift 2 2>/dev/null;;
+    --no-commit) handle_no_commit; shift 1;;
     --no-spec) handle_no_spec; shift 1;;
     --spec) handle_spec "$2"; shift 2 2>/dev/null;;
     --upgrade) handle_upgrade; shift 1;;
@@ -104,7 +131,21 @@ fi
 # Make sure the right directory is used. If run as root, $SUDO_HOME will point to the right location, not $HOME.
 DIR="${SUDO_HOME:-$HOME}"
 
+# If a commit should happen, make one happen
+if [[ -z "$NO_COMMIT" ]]; then
+    git add .
+
+    if [[ -z "$COMMIT_MSG" ]]; then
+        if ! git commit -e; then
+            echo "Commit failed."
+            exit 1
+        fi
+    else
+        git commit -m "$COMMIT_MSG"
+    fi
+fi
+
 # Based on https://www.youtube.com/watch?v=Dy3KHMuDNS8
 pushd $DIR/.nixos
-sudo nixos-rebuild switch $FLAGS
+echo sudo nixos-rebuild switch $FLAGS
 popd
