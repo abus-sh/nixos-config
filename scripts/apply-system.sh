@@ -146,6 +146,7 @@ if [[ -z "$NO_COMMIT" ]]; then
     else
         git commit -m "$COMMIT_MSG"
     fi
+    git push
 fi
 
 sudo nixos-rebuild switch $FLAGS
