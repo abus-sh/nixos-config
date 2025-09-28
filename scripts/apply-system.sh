@@ -131,6 +131,9 @@ fi
 # Make sure the right directory is used. If run as root, $SUDO_HOME will point to the right location, not $HOME.
 DIR="${SUDO_HOME:-$HOME}"
 
+# Based on https://www.youtube.com/watch?v=Dy3KHMuDNS8
+pushd $DIR/.nixos
+
 # If a commit should happen, make one happen
 if [[ -z "$NO_COMMIT" ]]; then
     git add .
@@ -145,7 +148,5 @@ if [[ -z "$NO_COMMIT" ]]; then
     fi
 fi
 
-# Based on https://www.youtube.com/watch?v=Dy3KHMuDNS8
-pushd $DIR/.nixos
 sudo nixos-rebuild switch $FLAGS
 popd
