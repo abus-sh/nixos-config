@@ -111,7 +111,7 @@ while [ "$#" -gt 0 ]; do
 done
 
 # Append the flag with the name
-append_flag "--flake ./system#$NAME"
+append_flag "--flake .#$NAME"
 
 # Detect if neither --spec nor --no-spec have been supplied, set SPEC if so
 if [[ -z "$SPEC_SET" ]]; then
