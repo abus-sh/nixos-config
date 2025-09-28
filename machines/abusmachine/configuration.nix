@@ -276,6 +276,7 @@ in
         ms-python.debugpy
         ms-python.python
         ms-toolsai.jupyter
+        vadimcn.vscode-lldb
       ] ++ [
         vscode-extensions.rust-lang.rust-analyzer
       ];
