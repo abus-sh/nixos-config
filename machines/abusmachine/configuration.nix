@@ -244,6 +244,7 @@ in
     quickemu
     ripgrep
     rust-analyzer
+    rustc
     sl
     spotify
     sqlite
