@@ -19,6 +19,7 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.trusted-users = [ "deploy-rs" ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -98,6 +99,31 @@
     ];
   };
 
+  # Account for deploy-rs
+  users.users.deploy-rs = {
+    isSystemUser = true;
+    description = "deploy-rs system account";
+    group = "deploy-rs";
+    useDefaultShell = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKXIt2CN5GRiZ949+rmt48J8I57y9VpEEGTTllXBg8Pa abus@abusmachine"
+    ];
+  };
+
+  users.groups.deploy-rs = {};
+
+  security.sudo.extraRules = [
+    {
+      users = [ "deploy-rs" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -110,6 +136,9 @@
     vim
     git
     vscodium
+    #ripgrep
+    #python314
+    #rustc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

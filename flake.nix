@@ -17,12 +17,9 @@
     deploy.nodes.nixosvm = {
       hostname = "nixosvm";
       profiles.system = {
-        profiles.system = {
-          sshUser = "abus";
-          user = "root";
-          interactiveSudo = true;
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nixosvm;
-        };
+        sshUser = "deploy-rs";
+        user = "root";
+        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nixosvm;
       };
     };
 
