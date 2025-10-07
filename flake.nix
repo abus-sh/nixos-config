@@ -9,9 +9,23 @@
       modules = [ ./machines/abusmachine/configuration.nix ];
     };
 
+    nixosConfigurations.artemis = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [ ./machines/artemis/configuration.nix ];
+    };
+
     nixosConfigurations.nixosvm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ ./machines/nixosvm/configuration.nix ];
+    };
+
+    deploy.nodes.artemis = {
+      hostname = "artemis";
+      profiles.system = {
+        sshUser = "deploy-rs";
+        user = "root";
+        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
+      };
     };
 
     deploy.nodes.nixosvm = {
