@@ -4,7 +4,12 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+
+      # Human accounts
       ../../modules/users/abus.nix
+      ../../modules/users/gato.nix
+
+      # Service accounts
       ../../modules/users/deploy-rs.nix
     ];
 
