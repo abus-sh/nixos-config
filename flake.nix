@@ -24,7 +24,7 @@
       profiles.system = {
         sshUser = "deploy-rs";
         user = "root";
-        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
+        path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.artemis;
       };
     };
 
