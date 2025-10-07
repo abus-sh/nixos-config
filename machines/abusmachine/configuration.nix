@@ -13,6 +13,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/users/abus.nix
     ];
 
   # Bootloader.
@@ -145,25 +146,6 @@ in
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-
-  # Define custom groups
-  users.groups = {
-    plocate = {};
-    vboxusers = {
-      members = [ "abus" ];
-    };
-  };
-
-  # Define a user account.
-  users.users.abus = {
-    isNormalUser = true;
-    description = "Abus";
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "scanner" "lp" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
-  };
 
   # Fonts
   fonts.packages = with pkgs; [

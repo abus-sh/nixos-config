@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/users/abus.nix
       ../../modules/users/deploy-rs.nix
     ];
 
@@ -89,16 +90,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.abus = {
-    isNormalUser = true;
-    description = "Abus";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
-  };
 
   # Install firefox.
   programs.firefox.enable = true;
