@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/users/deploy-rs.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -69,31 +70,31 @@
   };
 
   # Account for deploy-rs
-  users.users.deploy-rs = {
-    isSystemUser = true;
-    description = "deploy-rs system account";
-    group = "deploy-rs";
-    useDefaultShell = true;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKXIt2CN5GRiZ949+rmt48J8I57y9VpEEGTTllXBg8Pa abus@abusmachine"
-    ];
-  };
+  #users.users.deploy-rs = {
+  #  isSystemUser = true;
+  #  description = "deploy-rs system account";
+  #  group = "deploy-rs";
+  #  useDefaultShell = true;
+  #  openssh.authorizedKeys.keys = [
+  #    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKXIt2CN5GRiZ949+rmt48J8I57y9VpEEGTTllXBg8Pa abus@abusmachine"
+  #  ];
+  #};
 
-  users.groups.deploy-rs = {};
+  #users.groups.deploy-rs = {};
 
-  security.sudo.extraRules = [
-    {
-      users = [ "deploy-rs" ];
-      commands = [
-        {
-          command = "ALL";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+  #security.sudo.extraRules = [
+  #  {
+  #    users = [ "deploy-rs" ];
+  #    commands = [
+  #      {
+  #        command = "ALL";
+  #        options = [ "NOPASSWD" ];
+  #      }
+  #    ];
+  #  }
+  #];
 
-  nix.settings.trusted-users = [ "deploy-rs" ];
+  #nix.settings.trusted-users = [ "deploy-rs" ];
 
   # programs.firefox.enable = true;
 
