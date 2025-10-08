@@ -35,6 +35,9 @@
     vim
   ];
 
+  # Enable Docker
+  virtualisation.docker.enable = true;
+
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
