@@ -18,6 +18,9 @@
   # Enables the generation of /boot/extlinux/extlinux.conf
   boot.loader.generic-extlinux-compatible.enable = true;
 
+  # Nix settings
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   networking.hostName = "artemis"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
