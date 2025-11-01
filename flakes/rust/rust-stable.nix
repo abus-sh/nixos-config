@@ -19,8 +19,6 @@
         devShells.default = with pkgs; mkShell {
           buildInputs = [
             rust-bin.stable.latest.default
-            sdl3.dev
-            sdl3-image.dev
           ];
         };
       }
