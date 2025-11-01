@@ -52,6 +52,12 @@ in
     "zoom-us"
   ];
 
+  # Enable nix-ld
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    icu
+  ];
+
   # Steam settings (from https://nixos.wiki/wiki/Steam)
   programs.steam = {
     enable = true;
@@ -260,6 +266,7 @@ in
         ms-python.python
         ms-toolsai.jupyter
         vadimcn.vscode-lldb
+        ziglang.vscode-zig
       ] ++ [
         vscode-extensions.rust-lang.rust-analyzer
       ];
