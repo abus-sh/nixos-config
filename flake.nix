@@ -14,6 +14,11 @@
       modules = [ ./machines/artemis/configuration.nix ];
     };
 
+    nixosConfigurations.boreas = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ ./machines/boreas/configuration.nix ];
+    };
+
     nixosConfigurations.nixosvm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ ./machines/nixosvm/configuration.nix ];
@@ -25,6 +30,15 @@
         sshUser = "deploy-rs";
         user = "root";
         path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.artemis;
+      };
+    };
+
+    deploy.nodes.boreas = {
+      hostname = "boreas";
+      profiles.system = {
+        sshUser = "deploy-rs";
+        user = "root";
+        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.boreas;
       };
     };
 
