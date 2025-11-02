@@ -11,6 +11,9 @@
 
       # Service accounts
       ../../modules/users/deploy-rs.nix
+
+      # Services
+      ../../modules/services/openssh.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -40,15 +43,6 @@
 
   # Enable Docker
   virtualisation.docker.enable = true;
-
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
-  };
 
   # Configure the firewall
   networking.firewall.enable = false;
