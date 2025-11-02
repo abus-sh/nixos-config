@@ -16,6 +16,7 @@
       ../../modules/users/deploy-rs.nix
 
       # Services
+      ../../modules/services/foundry.nix
       ../../modules/services/openssh.nix
     ];
 
