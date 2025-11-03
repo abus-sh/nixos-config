@@ -8,6 +8,16 @@ let
     }
   );
   nix-vscode-extensions = nix-vscode-extensions-src.extensions.x86_64-linux;
+  resetLicense =
+    drv:
+    drv.overrideAttrs (prev: {
+      meta = prev.meta // {
+        license = [ ];
+      };
+    });
+  # Evil hack to allow this unfree extension without globally allowing unfree everything
+  # https://github.com/nix-community/nix-vscode-extensions#unfree-extensions
+  visualstudiotoolsforunity-vstuc = resetLicense nix-vscode-extensions.vscode-marketplace.visualstudiotoolsforunity.vstuc;
 in
 {
   imports =
@@ -268,6 +278,7 @@ in
         vadimcn.vscode-lldb
         ziglang.vscode-zig
       ] ++ [
+        visualstudiotoolsforunity-vstuc
         vscode-extensions.rust-lang.rust-analyzer
       ];
     })
