@@ -213,6 +213,7 @@ in
     ghidra
     git
     git-credential-manager
+    godot
     gnumake
     hunspell
     hunspellDicts.en_US
