@@ -12,6 +12,11 @@ def git_commit(args):
     # Add all unstagged files
     subprocess.run(["git", "add", "."])
 
+    # If there aren't any changes, don't commit anything
+    result = subprocess.run(["git", "diff", "--name-only"], capture_output=True)
+    if result.stdout.strip() == b"":
+        return
+
     # Use provided commit message or prompt for one
     if args.message:
         result = subprocess.run(["git", "commit", "-m", args.message])
