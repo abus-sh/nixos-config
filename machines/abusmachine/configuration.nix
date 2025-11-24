@@ -269,6 +269,7 @@ in
       vscode = vscodium;
       vscodeExtensions = with nix-vscode-extensions.open-vsx; [
         dbaeumer.vscode-eslint
+        dioxuslabs.dioxus
         editorconfig.editorconfig
         jnoortheen.nix-ide
         mkhl.direnv
