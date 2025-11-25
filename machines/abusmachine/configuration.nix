@@ -235,6 +235,7 @@ in
     p7zip
     pciutils
     pinentry-qt
+    pinta
     postman
     prismlauncher
     protonvpn-gui
