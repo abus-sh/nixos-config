@@ -355,12 +355,17 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 
-  # TODO: enable automatic updates
-  #system.autoUpgrade.enable = true;
-  #system.autoUpgrade.flags = [
-  #  "-I"
-  #  "nixos-config=/home/abus/.nixos/system/configuration.nix"
-  #];
+  # Automatic updates
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.flags = [
+    "-I"
+    "nixos-config=/home/abus/.nixos/machines/abusmachine/configuration.nix"
+  ];
+  system.autoUpgrade.allowReboot = true;
+  system.autoUpgrade.rebootWindow = {
+    lower = "04:00";
+    upper = "07:00";
+  };
 
   specialisation = {
     gpu.configuration = {
