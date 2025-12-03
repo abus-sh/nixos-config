@@ -269,6 +269,7 @@ in
     (vscode-with-extensions.override {
       vscode = vscodium;
       vscodeExtensions = with nix-vscode-extensions.open-vsx; [
+        angular.ng-template
         dbaeumer.vscode-eslint
         dioxuslabs.dioxus
         editorconfig.editorconfig
