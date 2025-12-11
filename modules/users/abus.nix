@@ -6,6 +6,7 @@ let
   ] ++ ifTheyExist [
     "dialout"
     "docker"
+    "input"
     "lp"
     "networkmanager"
     "scanner"
