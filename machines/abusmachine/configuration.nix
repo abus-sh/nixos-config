@@ -333,6 +333,7 @@ in
   networking.firewall.interfaces.wlp0s20f3 = {
     allowedTCPPorts = [
       8000
+      25565
     ];
   };
 
