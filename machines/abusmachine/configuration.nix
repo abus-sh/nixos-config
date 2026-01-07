@@ -221,6 +221,7 @@ in
     iw
     jq
     kdePackages.kcalc
+    kdePackages.kdeconnect-kde
     libreoffice-qt6-fresh
     libresplit
     libva-utils
@@ -335,6 +336,14 @@ in
       8000
       25565
     ];
+    allowedTCPPortRanges = [{
+      from = 1714;
+      to = 1764;
+    }];
+    allowedUDPPortRanges = [{
+      from = 1714;
+      to = 1764;
+    }];
   };
 
   # Allow TCP and UDP traffic on VirtualBox interface
