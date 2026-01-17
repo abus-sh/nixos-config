@@ -275,6 +275,7 @@ in
         dioxuslabs.dioxus
         editorconfig.editorconfig
         jnoortheen.nix-ide
+        leanprover.lean4
         mkhl.direnv
         ms-pyright.pyright
         ms-python.debugpy
