@@ -15,6 +15,7 @@
       # Services
       ../../modules/services/openssh.nix
       ../../modules/services/technitium.nix
+      ../../modules/services/zerotierone.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
