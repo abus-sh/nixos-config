@@ -281,6 +281,7 @@ in
         ms-python.debugpy
         ms-python.python
         ms-toolsai.jupyter
+        tamasfe.even-better-toml
         vadimcn.vscode-lldb
         ziglang.vscode-zig
       ] ++ [
@@ -330,6 +331,38 @@ in
     pinentryPackage = pkgs.pinentry-qt;
     enableSSHSupport = true;
   };
+
+  security.pki.certificates = [''
+    mkcert CA
+    =========
+    -----BEGIN CERTIFICATE-----
+    MIIEpjCCAw6gAwIBAgIRAPhZxyxD2kEMoVZ/vnQDEQcwDQYJKoZIhvcNAQELBQAw
+    azEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSAwHgYDVQQLDBdhYnVz
+    QGFidXNtYWNoaW5lIChBYnVzKTEnMCUGA1UEAwwebWtjZXJ0IGFidXNAYWJ1c21h
+    Y2hpbmUgKEFidXMpMB4XDTI1MDgwNjIwMDYxN1oXDTM1MDgwNjIwMDYxN1owazEe
+    MBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSAwHgYDVQQLDBdhYnVzQGFi
+    dXNtYWNoaW5lIChBYnVzKTEnMCUGA1UEAwwebWtjZXJ0IGFidXNAYWJ1c21hY2hp
+    bmUgKEFidXMpMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAq6daNnr6
+    KX7Yoh7RjfPglMScWCJRXdakWvHE/DHG5c+e7195JqoBF06kf1QkAnclvWyEK8Wy
+    nmzDcKSwgyi4sQgA/McOB4ffZEYzHX7WTyqPs+my8n7Vjes1mhn+8yIhbZ57GHwP
+    9EWVod3+viaGw5OWVDiPDJJzcvbFJKatmI9viZMQO/adCvgEmtEddxMlYn9tu2AH
+    Od4vHNzUT8gtU1RZr1wGbm7Bj2vaWM/zDT5bWLvU8wEJWygXrjoMMlIdk/27pGnk
+    Rdd/7DzSe9tUOnJHfD93Cy4ZdZLYkp/XJI+RYukFup0Ze7CYmulQLRhVpOUonnyX
+    HUwW+iYkugncOpZ+5/NFoz+zOkzVLbSOxuMg0bmfw+O1Xk0rC2AXCPE+7xcpG6ch
+    Tyz/zZuEOn5SgIQxygsuB6ZXhHPL56h7M6vC1xDq1YCvg6IiHS6nsFcf/xaAD3tq
+    eynt+vqFRLcIABXZkwboclm8lb3Sfj2wZNWNPXtp4/JrcfM9ok8Gj0tjAgMBAAGj
+    RTBDMA4GA1UdDwEB/wQEAwICBDASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQW
+    BBTj2BIruuNDFyPSVHvqurGHjdNCVzANBgkqhkiG9w0BAQsFAAOCAYEAOpNyRto7
+    y/ZOZi05R2K/DPMNEs+Btk0faS7d7Zr7+N66aXjPT/JgN9o08sidqtswBCerCa7y
+    bNCbqUrvlZhdcsf9BXOC9GocnZCF7b/iJ0HrbtRRq3VMDUw27FsKQJATcZSANln+
+    QjlMltjLHRjjFTzYtYeHtOkXPoaTTqqGx8+yoZI9pz8flxIyj1hL/LjlKtTHhhwU
+    K9kZLqtu2STbBLdgA/la2DfP0iytQLRfRcVnZ011gOyU7NAFoDQOPJ3smnYP8eqj
+    NCmrSwNN6fYCqYe6zS7rXXHzJ7SDEHGgEVSp0gfo3SzLZJIWYJ/dsvnYXwZog+ce
+    zeOVXL/M4xXtbyYppsw3ad9ml2JwpMm5LDbDyVPWCz/NrNfZkLQLm3Zjium+6oNd
+    H4t2zg1wz0tEgmfJZQE1K8gPgGK82pQ3k7iq4V9W3Qn9CctDlI3xmYStKiNiFY3i
+    8AaP8LJv5J9x+aYm/OZu7OAHK5ECyxt8C0wjl/X88jsegQthcwP2hm9h
+    -----END CERTIFICATE-----
+  ''];
 
   # Allow TCP traffic on port 8000 for Python http.server
   networking.firewall.interfaces.wlp0s20f3 = {
