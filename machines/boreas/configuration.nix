@@ -44,6 +44,9 @@
 
   networking.firewall.enable = false;
 
+  # Enable Docker
+  virtualisation.docker.enable = true;
+
   services.zerotierone = {
     enable = true;
   };
