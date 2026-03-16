@@ -210,7 +210,9 @@ in
     file
     flatpak
     gcc
-    ghidra
+    (ghidra.withExtensions (p: with p; [
+      ghidra-golanganalyzerextension
+    ]))
     git
     git-credential-manager
     godotPackages_4_5.godot
