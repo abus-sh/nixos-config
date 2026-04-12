@@ -7,3 +7,8 @@ each generation with an old kernel.
 4. Run `update-system.sh` to make sure the kernel version is up-to-date.
 5. Rebuild system.
 6. If the rebuild fails, manually (BUT CAREFULLY) delete files from /boot for old kernels.
+
+# Taskbar Disappears
+
+1. Run `kill $(pgrep plasmashell)` to kill the current `plasmashell`.
+2. Run `plasmashell &` to restart it.
