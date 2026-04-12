@@ -79,6 +79,9 @@ in
     };
   };
 
+  # bolt daemon
+  services.hardware.bolt.enable = true;
+
   # locate settings
   services.locate = {
     enable = true;
