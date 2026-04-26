@@ -405,7 +405,7 @@ in
     lower = "04:00";
     upper = "07:00";
   };
-  system.autoUpgrade.flake = "/home/abus/.nixos/flake.nix";
+  system.autoUpgrade.flake = "/home/abus/.nixos#nixosConfigurations.abusmachine";
 
   specialisation = {
     gpu.configuration = {
