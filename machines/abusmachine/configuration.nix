@@ -378,6 +378,18 @@ in
     }];
   };
 
+  # Allow TCP and UDP traffic on Docker interface
+  networking.firewall.interfaces.docker0 = {
+    allowedTCPPortRanges = [{
+      from = 0;
+      to = 65535;
+    }];
+    allowedUDPPortRanges = [{
+      from = 0;
+      to = 65535;
+    }];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
