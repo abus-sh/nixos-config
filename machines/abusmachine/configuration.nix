@@ -279,10 +279,8 @@ in
         biomejs.biome
         bradlc.vscode-tailwindcss
         dbaeumer.vscode-eslint
-        dioxuslabs.dioxus
         editorconfig.editorconfig
         jnoortheen.nix-ide
-        leanprover.lean4
         mkhl.direnv
         ms-pyright.pyright
         ms-python.debugpy
@@ -291,9 +289,7 @@ in
         prisma.prisma
         tamasfe.even-better-toml
         vadimcn.vscode-lldb
-        ziglang.vscode-zig
       ] ++ [
-        visualstudiotoolsforunity-vstuc
         vscode-extensions.rust-lang.rust-analyzer
       ];
     })
