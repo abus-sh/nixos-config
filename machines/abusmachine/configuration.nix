@@ -276,6 +276,8 @@ in
       vscode = vscodium;
       vscodeExtensions = with nix-vscode-extensions.open-vsx; [
         angular.ng-template
+        biomejs.biome
+        bradlc.vscode-tailwindcss
         dbaeumer.vscode-eslint
         dioxuslabs.dioxus
         editorconfig.editorconfig
@@ -286,6 +288,7 @@ in
         ms-python.debugpy
         ms-python.python
         ms-toolsai.jupyter
+        prisma.prisma
         tamasfe.even-better-toml
         vadimcn.vscode-lldb
         ziglang.vscode-zig
