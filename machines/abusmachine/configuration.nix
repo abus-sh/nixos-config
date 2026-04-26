@@ -349,16 +349,18 @@ in
     -----END CERTIFICATE-----
   ''];
 
-  # Allow TCP traffic on port 8000 for Python http.server
   networking.firewall.interfaces.wlp0s20f3 = {
     allowedTCPPorts = [
+      # Allow TCP traffic on port 8000 for Python http.server
       8000
     ];
     allowedTCPPortRanges = [{
+      # Allow TCP traffic on ports 1714-1764 for KDE Connect
       from = 1714;
       to = 1764;
     }];
     allowedUDPPortRanges = [{
+      # Allow UDP traffic on ports 1714-1764 for KDE Connect
       from = 1714;
       to = 1764;
     }];
