@@ -31,12 +31,6 @@ in
   boot.loader.systemd-boot.configurationLimit = 20;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Allow emulating other architectures
-  boot.binfmt.emulatedSystems = [
-    "aarch64-linux"
-    "riscv64-linux"
-  ];
-
   # UEFI firmware support
   systemd.tmpfiles.rules = [ "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware" ];
 
@@ -58,15 +52,10 @@ in
     "steam-unwrapped"
     "steam-run"
     "zerotierone"
-    "zoom"
-    "zoom-us"
   ];
 
   # Enable nix-ld
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    icu
-  ];
 
   # Steam settings (from https://nixos.wiki/wiki/Steam)
   programs.steam = {
@@ -153,7 +142,6 @@ in
   services.avahi.nssmdns4 = true;
 
   # Enable sound with pipewire.
-  #services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -201,7 +189,6 @@ in
     bintools
     cargo
     cargo-expand
-    cowsay
     curl
     dig
     direnv
@@ -246,22 +233,18 @@ in
     prismlauncher
     protonvpn-gui
     python313
-    qemu
-    quickemu
     ripgrep
     rust-analyzer
     rustc
     sl
     spotify
     sqlite
-    taskwarrior3
     tmux
     tree
     traceroute
     tshark
     unixtools.xxd
     unrar-wrapper
-    vit
     vlc
     whois
     wireshark
@@ -269,7 +252,6 @@ in
     wl-clipboard
     xdg-utils
     zfs
-    zoom-us
 
     # VS Code extensions
     (vscode-with-extensions.override {
@@ -316,7 +298,6 @@ in
   virtualisation.virtualbox = {
     host = {
       enable = true;
-      #enableExtensionPack = true;
     };
   };
 
