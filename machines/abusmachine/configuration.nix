@@ -400,15 +400,12 @@ in
 
   # Automatic updates
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.flags = [
-    "-I"
-    "nixos-config=/home/abus/.nixos/machines/abusmachine/configuration.nix"
-  ];
   system.autoUpgrade.allowReboot = true;
   system.autoUpgrade.rebootWindow = {
     lower = "04:00";
     upper = "07:00";
   };
+  system.autoUpgrade.flake = "/home/abus/.nixos/flake.nix";
 
   specialisation = {
     gpu.configuration = {
