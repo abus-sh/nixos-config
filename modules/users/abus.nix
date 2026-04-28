@@ -4,6 +4,7 @@ let
   extraGroups = [
     "wheel"
   ] ++ ifTheyExist [
+    "cdrom"
     "dialout"
     "docker"
     "input"
