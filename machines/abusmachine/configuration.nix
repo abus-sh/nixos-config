@@ -31,6 +31,11 @@ in
   boot.loader.systemd-boot.configurationLimit = 20;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Allow emulating other architectures
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
+
   # UEFI firmware support
   systemd.tmpfiles.rules = [ "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware" ];
 
