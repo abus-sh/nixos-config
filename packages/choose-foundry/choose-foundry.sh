@@ -76,6 +76,12 @@ turn_on_lancer() {
 set -euo pipefail
 trap handle_exit EXIT
 
+# If we aren't root, re-launch as root
+if [ "$EUID" -ne 0 ]; then
+    sudo "$0"
+    exit
+fi
+
 # Make sure we have one arg
 if [ $# -ne 1 ]; then
     choose_instance
