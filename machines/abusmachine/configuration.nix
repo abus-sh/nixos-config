@@ -43,6 +43,9 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Nixpkgs settings
+  nixpkgs.overlays = [
+    (import ../../packages/overlay.nix)
+  ];
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
     # List of allowed unfree packages
     "corefonts"
