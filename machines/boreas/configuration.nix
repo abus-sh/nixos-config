@@ -11,6 +11,7 @@
 
       # Human accounts
       ../../modules/users/abus.nix
+      ../../modules/users/zach.nix
 
       # Service accounts
       ../../modules/users/deploy-rs.nix
