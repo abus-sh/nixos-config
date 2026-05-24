@@ -51,6 +51,11 @@
     enable = true;
   };
 
+  # Add overlays
+  nixpkgs.overlays = [
+    (import ../../packages/overlay.nix)
+  ];
+
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
     "zerotierone"
   ];
