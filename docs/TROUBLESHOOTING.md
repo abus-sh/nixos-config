@@ -12,3 +12,12 @@ each generation with an old kernel.
 
 1. Run `kill $(pgrep plasmashell)` to kill the current `plasmashell`.
 2. Run `plasmashell &` to restart it.
+
+# Debugging Nix Issues
+
+Based on https://discourse.nixos.org/t/how-to-use-builtins-break-effectively/23115
+
+1. Optionally, insert `builtins.break` into expressions (ex.
+`foobar = ((_: builtins.break _) <expr>)`).
+2. Run `nix flake check . --debugger --no-build` for NixOS issues and `nix build .# --debugger` for
+normal flake issues.
