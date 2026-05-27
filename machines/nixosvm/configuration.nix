@@ -79,6 +79,9 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Configure the firewall
+  networking.firewall.enable = false;
+
   environment.systemPackages = with pkgs; [
     vim
     git
