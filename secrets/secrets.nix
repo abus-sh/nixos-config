@@ -14,10 +14,10 @@ in
 {
   "git.abus.lan.key.age".publicKeys = [
     abus
-    nixosvm
+    artemis
   ];
   "git.abus.lan.cert.age".publicKeys = [
     abus
-    nixosvm
+    artemis
   ];
 }
