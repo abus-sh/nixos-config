@@ -300,6 +300,7 @@ in
   # Environment variables
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
+    EDITOR = "codium -w";
   };
 
   # Enable VirtualBox
