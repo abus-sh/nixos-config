@@ -12,17 +12,5 @@ let
   ];
 in
 {
-  "secret1.age".publicKeys = [
-    abus
-    nixosvm
-  ];
-  "secret2.age".publicKeys = users ++ systems;
-  "armored-secret.age" = {
-    publicKeys = [
-      abus
-    ];
-    armor = [
-      true
-    ];
-  };
+  
 }
