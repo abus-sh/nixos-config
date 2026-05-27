@@ -1,5 +1,5 @@
 let
-  abus = "";
+  abus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEc9FGYBcOnVc/q0YfaS/CCDJXf1Se6dSswZDl67kyBP";
   users = [
     abus
   ];
@@ -12,5 +12,12 @@ let
   ];
 in
 {
-  
+  "git.abus.lan.key.age".publicKeys = [
+    abus
+    nixosvm
+  ];
+  "git.abus.lan.cert.age".publicKeys = [
+    abus
+    nixosvm
+  ];
 }
