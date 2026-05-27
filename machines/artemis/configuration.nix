@@ -13,6 +13,8 @@
       ../../modules/users/deploy-rs.nix
 
       # Services
+      ../../modules/services/forgejo.nix
+      ../../modules/services/nginx.nix
       ../../modules/services/openssh.nix
       ../../modules/services/technitium.nix
       ../../modules/services/zerotierone.nix
