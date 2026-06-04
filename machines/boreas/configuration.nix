@@ -22,6 +22,7 @@
       # Services
       ../../modules/services/foundry.nix
       ../../modules/services/openssh.nix
+      ../../modules/services/forgejo-runner.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -53,6 +54,14 @@
 
   services.zerotierone = {
     enable = true;
+  };
+
+  services.forgejo-runner = {
+    enable = true;
+    name = "boreas";
+    labels = [
+      "rust-1.96:docker://ghcr.io/abus-sh/rust-cert:1.96.0-slim-trixie"
+    ];
   };
 
   # Add overlays
