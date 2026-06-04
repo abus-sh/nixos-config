@@ -20,4 +20,8 @@ in
     abus
     artemis
   ];
+  "forgejo-runner-token.age".publicKeys = [
+    abus
+    nixosvm
+  ];
 }
