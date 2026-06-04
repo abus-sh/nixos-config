@@ -22,6 +22,6 @@ in
   ];
   "forgejo-runner-token.age".publicKeys = [
     abus
-    nixosvm
+    boreas
   ];
 }
