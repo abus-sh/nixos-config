@@ -48,6 +48,10 @@
   ];
 
   networking.firewall.enable = false;
+  networking.nameservers = [
+    "192.168.4.147"
+    "8.8.8.8"
+  ];
 
   # Enable Docker
   virtualisation.docker.enable = true;
