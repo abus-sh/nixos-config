@@ -230,6 +230,7 @@ in
     neo-cowsay
     neovim
     nmap
+    nix-index
     obs-cmd
     obsidian
     openssl
