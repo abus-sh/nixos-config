@@ -280,6 +280,7 @@ in
         prisma.prisma
         tamasfe.even-better-toml
         vadimcn.vscode-lldb
+        vivaxy.vscode-conventional-commits
       ] ++ [
         vscode-extensions.rust-lang.rust-analyzer
       ];
