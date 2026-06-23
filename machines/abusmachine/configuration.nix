@@ -240,7 +240,7 @@ in
     pinta
     postman
     prismlauncher
-    protonvpn-gui
+    proton-vpn
     python313
     ripgrep
     rust-analyzer
