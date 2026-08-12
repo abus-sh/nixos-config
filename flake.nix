@@ -1,8 +1,18 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    deploy-rs.url = "github:serokell/deploy-rs";
-    agenix.url = "github:ryantm/agenix";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
   outputs = { self, nixpkgs, deploy-rs, agenix }: {
     nixosConfigurations.abusmachine = nixpkgs.lib.nixosSystem {
