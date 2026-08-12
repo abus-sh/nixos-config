@@ -232,7 +232,6 @@ in
     nmap
     nix-index
     nixfmt
-    obs-cmd
     obsidian
     openssl
     p7zip
@@ -267,9 +266,6 @@ in
     (vscode-with-extensions.override {
       vscode = vscodium;
       vscodeExtensions = with nix-vscode-extensions.open-vsx; [
-        angular.ng-template
-        biomejs.biome
-        bradlc.vscode-tailwindcss
         dbaeumer.vscode-eslint
         editorconfig.editorconfig
         jnoortheen.nix-ide
@@ -278,7 +274,6 @@ in
         ms-python.debugpy
         ms-python.python
         ms-toolsai.jupyter
-        prisma.prisma
         tamasfe.even-better-toml
         vadimcn.vscode-lldb
         vivaxy.vscode-conventional-commits
