@@ -231,6 +231,7 @@ in
     neovim
     nmap
     nix-index
+    nixfmt
     obs-cmd
     obsidian
     openssl
