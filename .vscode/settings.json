@@ -1,0 +1,15 @@
+{
+    "conventionalCommits.scopes": [
+        "abus",
+        "abusmachine",
+        "artemis",
+        "boreas",
+        "flakes",
+        "modules",
+        "nixosvm",
+        "packages",
+        "secrets",
+        "scripts",
+        "zach"
+    ]
+}
