@@ -231,7 +231,6 @@ in
     kdePackages.kcalc
     kdePackages.kdeconnect-kde
     libreoffice-qt6-fresh
-    libresplit
     libva-utils
     libsecret
     mkcert
@@ -259,16 +258,13 @@ in
     tmux
     tree
     traceroute
-    tshark
     unixtools.xxd
-    unrar-wrapper
     vlc
     whois
     wireshark
     wget
     wl-clipboard
     xdg-utils
-    zfs
 
     # VS Code extensions
     (vscode-with-extensions.override {
