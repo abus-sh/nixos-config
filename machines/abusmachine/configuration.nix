@@ -20,11 +20,11 @@ let
   visualstudiotoolsforunity-vstuc = resetLicense nix-vscode-extensions.vscode-marketplace.visualstudiotoolsforunity.vstuc;
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/users/abus.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/users/abus.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -40,27 +40,32 @@ in
   systemd.tmpfiles.rules = [ "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware" ];
 
   # Nix settings
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Nixpkgs settings
   nixpkgs.overlays = [
     (import ../../packages/overlay.nix)
   ];
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
-    # List of allowed unfree packages
-    "corefonts"
-    "discord"
-    "nvidia-settings"
-    "nvidia-x11"
-    "obsidian"
-    "postman"
-    "spotify"
-    "steam"
-    "steam-original"
-    "steam-unwrapped"
-    "steam-run"
-    "zerotierone"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.strings.getName pkg) [
+      # List of allowed unfree packages
+      "corefonts"
+      "discord"
+      "nvidia-settings"
+      "nvidia-x11"
+      "obsidian"
+      "postman"
+      "spotify"
+      "steam"
+      "steam-original"
+      "steam-unwrapped"
+      "steam-run"
+      "zerotierone"
+    ];
 
   # Enable nix-ld
   programs.nix-ld.enable = true;
@@ -88,14 +93,15 @@ in
   # Flatpak and add FlatHub repo (from https://nixos.wiki/wiki/Flatpak)
   services.flatpak.enable = true;
   systemd.services.configure-flathub-repo = {
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     path = [ pkgs.flatpak ];
     script = ''
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
   };
 
-  boot.initrd.luks.devices."luks-c9c4f91d-d176-43ad-b136-02b228cd15d1".device = "/dev/disk/by-uuid/c9c4f91d-d176-43ad-b136-02b228cd15d1";
+  boot.initrd.luks.devices."luks-c9c4f91d-d176-43ad-b136-02b228cd15d1".device =
+    "/dev/disk/by-uuid/c9c4f91d-d176-43ad-b136-02b228cd15d1";
   networking.hostName = "abusmachine";
 
   # Enable networking
@@ -208,9 +214,11 @@ in
     file
     flatpak
     gcc
-    (ghidra.withExtensions (p: with p; [
-      ghidra-golanganalyzerextension
-    ]))
+    (ghidra.withExtensions (
+      p: with p; [
+        ghidra-golanganalyzerextension
+      ]
+    ))
     git
     git-credential-manager
     godotPackages_4_5.godot
@@ -265,21 +273,24 @@ in
     # VS Code extensions
     (vscode-with-extensions.override {
       vscode = vscodium;
-      vscodeExtensions = with nix-vscode-extensions.open-vsx; [
-        dbaeumer.vscode-eslint
-        editorconfig.editorconfig
-        jnoortheen.nix-ide
-        mkhl.direnv
-        ms-pyright.pyright
-        ms-python.debugpy
-        ms-python.python
-        ms-toolsai.jupyter
-        tamasfe.even-better-toml
-        vadimcn.vscode-lldb
-        vivaxy.vscode-conventional-commits
-      ] ++ [
-        vscode-extensions.rust-lang.rust-analyzer
-      ];
+      vscodeExtensions =
+        with nix-vscode-extensions.open-vsx;
+        [
+          dbaeumer.vscode-eslint
+          editorconfig.editorconfig
+          jnoortheen.nix-ide
+          mkhl.direnv
+          ms-pyright.pyright
+          ms-python.debugpy
+          ms-python.python
+          ms-toolsai.jupyter
+          tamasfe.even-better-toml
+          vadimcn.vscode-lldb
+          vivaxy.vscode-conventional-commits
+        ]
+        ++ [
+          vscode-extensions.rust-lang.rust-analyzer
+        ];
     })
   ];
 
@@ -324,77 +335,91 @@ in
     enableSSHSupport = true;
   };
 
-  security.pki.certificates = [''
-    mkcert CA
-    =========
-    -----BEGIN CERTIFICATE-----
-    MIIEpjCCAw6gAwIBAgIRAPhZxyxD2kEMoVZ/vnQDEQcwDQYJKoZIhvcNAQELBQAw
-    azEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSAwHgYDVQQLDBdhYnVz
-    QGFidXNtYWNoaW5lIChBYnVzKTEnMCUGA1UEAwwebWtjZXJ0IGFidXNAYWJ1c21h
-    Y2hpbmUgKEFidXMpMB4XDTI1MDgwNjIwMDYxN1oXDTM1MDgwNjIwMDYxN1owazEe
-    MBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSAwHgYDVQQLDBdhYnVzQGFi
-    dXNtYWNoaW5lIChBYnVzKTEnMCUGA1UEAwwebWtjZXJ0IGFidXNAYWJ1c21hY2hp
-    bmUgKEFidXMpMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAq6daNnr6
-    KX7Yoh7RjfPglMScWCJRXdakWvHE/DHG5c+e7195JqoBF06kf1QkAnclvWyEK8Wy
-    nmzDcKSwgyi4sQgA/McOB4ffZEYzHX7WTyqPs+my8n7Vjes1mhn+8yIhbZ57GHwP
-    9EWVod3+viaGw5OWVDiPDJJzcvbFJKatmI9viZMQO/adCvgEmtEddxMlYn9tu2AH
-    Od4vHNzUT8gtU1RZr1wGbm7Bj2vaWM/zDT5bWLvU8wEJWygXrjoMMlIdk/27pGnk
-    Rdd/7DzSe9tUOnJHfD93Cy4ZdZLYkp/XJI+RYukFup0Ze7CYmulQLRhVpOUonnyX
-    HUwW+iYkugncOpZ+5/NFoz+zOkzVLbSOxuMg0bmfw+O1Xk0rC2AXCPE+7xcpG6ch
-    Tyz/zZuEOn5SgIQxygsuB6ZXhHPL56h7M6vC1xDq1YCvg6IiHS6nsFcf/xaAD3tq
-    eynt+vqFRLcIABXZkwboclm8lb3Sfj2wZNWNPXtp4/JrcfM9ok8Gj0tjAgMBAAGj
-    RTBDMA4GA1UdDwEB/wQEAwICBDASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQW
-    BBTj2BIruuNDFyPSVHvqurGHjdNCVzANBgkqhkiG9w0BAQsFAAOCAYEAOpNyRto7
-    y/ZOZi05R2K/DPMNEs+Btk0faS7d7Zr7+N66aXjPT/JgN9o08sidqtswBCerCa7y
-    bNCbqUrvlZhdcsf9BXOC9GocnZCF7b/iJ0HrbtRRq3VMDUw27FsKQJATcZSANln+
-    QjlMltjLHRjjFTzYtYeHtOkXPoaTTqqGx8+yoZI9pz8flxIyj1hL/LjlKtTHhhwU
-    K9kZLqtu2STbBLdgA/la2DfP0iytQLRfRcVnZ011gOyU7NAFoDQOPJ3smnYP8eqj
-    NCmrSwNN6fYCqYe6zS7rXXHzJ7SDEHGgEVSp0gfo3SzLZJIWYJ/dsvnYXwZog+ce
-    zeOVXL/M4xXtbyYppsw3ad9ml2JwpMm5LDbDyVPWCz/NrNfZkLQLm3Zjium+6oNd
-    H4t2zg1wz0tEgmfJZQE1K8gPgGK82pQ3k7iq4V9W3Qn9CctDlI3xmYStKiNiFY3i
-    8AaP8LJv5J9x+aYm/OZu7OAHK5ECyxt8C0wjl/X88jsegQthcwP2hm9h
-    -----END CERTIFICATE-----
-  ''];
+  security.pki.certificates = [
+    ''
+      mkcert CA
+      =========
+      -----BEGIN CERTIFICATE-----
+      MIIEpjCCAw6gAwIBAgIRAPhZxyxD2kEMoVZ/vnQDEQcwDQYJKoZIhvcNAQELBQAw
+      azEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSAwHgYDVQQLDBdhYnVz
+      QGFidXNtYWNoaW5lIChBYnVzKTEnMCUGA1UEAwwebWtjZXJ0IGFidXNAYWJ1c21h
+      Y2hpbmUgKEFidXMpMB4XDTI1MDgwNjIwMDYxN1oXDTM1MDgwNjIwMDYxN1owazEe
+      MBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSAwHgYDVQQLDBdhYnVzQGFi
+      dXNtYWNoaW5lIChBYnVzKTEnMCUGA1UEAwwebWtjZXJ0IGFidXNAYWJ1c21hY2hp
+      bmUgKEFidXMpMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAq6daNnr6
+      KX7Yoh7RjfPglMScWCJRXdakWvHE/DHG5c+e7195JqoBF06kf1QkAnclvWyEK8Wy
+      nmzDcKSwgyi4sQgA/McOB4ffZEYzHX7WTyqPs+my8n7Vjes1mhn+8yIhbZ57GHwP
+      9EWVod3+viaGw5OWVDiPDJJzcvbFJKatmI9viZMQO/adCvgEmtEddxMlYn9tu2AH
+      Od4vHNzUT8gtU1RZr1wGbm7Bj2vaWM/zDT5bWLvU8wEJWygXrjoMMlIdk/27pGnk
+      Rdd/7DzSe9tUOnJHfD93Cy4ZdZLYkp/XJI+RYukFup0Ze7CYmulQLRhVpOUonnyX
+      HUwW+iYkugncOpZ+5/NFoz+zOkzVLbSOxuMg0bmfw+O1Xk0rC2AXCPE+7xcpG6ch
+      Tyz/zZuEOn5SgIQxygsuB6ZXhHPL56h7M6vC1xDq1YCvg6IiHS6nsFcf/xaAD3tq
+      eynt+vqFRLcIABXZkwboclm8lb3Sfj2wZNWNPXtp4/JrcfM9ok8Gj0tjAgMBAAGj
+      RTBDMA4GA1UdDwEB/wQEAwICBDASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQW
+      BBTj2BIruuNDFyPSVHvqurGHjdNCVzANBgkqhkiG9w0BAQsFAAOCAYEAOpNyRto7
+      y/ZOZi05R2K/DPMNEs+Btk0faS7d7Zr7+N66aXjPT/JgN9o08sidqtswBCerCa7y
+      bNCbqUrvlZhdcsf9BXOC9GocnZCF7b/iJ0HrbtRRq3VMDUw27FsKQJATcZSANln+
+      QjlMltjLHRjjFTzYtYeHtOkXPoaTTqqGx8+yoZI9pz8flxIyj1hL/LjlKtTHhhwU
+      K9kZLqtu2STbBLdgA/la2DfP0iytQLRfRcVnZ011gOyU7NAFoDQOPJ3smnYP8eqj
+      NCmrSwNN6fYCqYe6zS7rXXHzJ7SDEHGgEVSp0gfo3SzLZJIWYJ/dsvnYXwZog+ce
+      zeOVXL/M4xXtbyYppsw3ad9ml2JwpMm5LDbDyVPWCz/NrNfZkLQLm3Zjium+6oNd
+      H4t2zg1wz0tEgmfJZQE1K8gPgGK82pQ3k7iq4V9W3Qn9CctDlI3xmYStKiNiFY3i
+      8AaP8LJv5J9x+aYm/OZu7OAHK5ECyxt8C0wjl/X88jsegQthcwP2hm9h
+      -----END CERTIFICATE-----
+    ''
+  ];
 
   networking.firewall.interfaces.wlp0s20f3 = {
     allowedTCPPorts = [
       # Allow TCP traffic on port 8000 for Python http.server
       8000
     ];
-    allowedTCPPortRanges = [{
-      # Allow TCP traffic on ports 1714-1764 for KDE Connect
-      from = 1714;
-      to = 1764;
-    }];
-    allowedUDPPortRanges = [{
-      # Allow UDP traffic on ports 1714-1764 for KDE Connect
-      from = 1714;
-      to = 1764;
-    }];
+    allowedTCPPortRanges = [
+      {
+        # Allow TCP traffic on ports 1714-1764 for KDE Connect
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        # Allow UDP traffic on ports 1714-1764 for KDE Connect
+        from = 1714;
+        to = 1764;
+      }
+    ];
   };
 
   # Allow TCP and UDP traffic on VirtualBox interface
   networking.firewall.interfaces.vboxnet0 = {
-    allowedTCPPortRanges = [{
-      from = 0;
-      to = 65535;
-    }];
-    allowedUDPPortRanges = [{
-      from = 0;
-      to = 65535;
-    }];
+    allowedTCPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
   };
 
   # Allow TCP and UDP traffic on Docker interface
   networking.firewall.interfaces.docker0 = {
-    allowedTCPPortRanges = [{
-      from = 0;
-      to = 65535;
-    }];
-    allowedUDPPortRanges = [{
-      from = 0;
-      to = 65535;
-    }];
+    allowedTCPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
   };
 
   # This value determines the NixOS release from which the default
@@ -412,7 +437,7 @@ in
     lower = "04:00";
     upper = "07:00";
   };
-  system.autoUpgrade.flake = "/home/abus/.nixos#nixosConfigurations.abusmachine";
+  system.autoUpgrade.flake = "/home/abus/.nixos#abusmachine";
 
   specialisation = {
     gpu.configuration = {
@@ -422,7 +447,10 @@ in
       hardware.nvidia.modesetting.enable = true;
 
       boot.initrd.availableKernelModules = [
-        "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm"
+        "nvidia_drm"
+        "nvidia_modeset"
+        "nvidia"
+        "nvidia_uvm"
       ];
 
       hardware.graphics = {
