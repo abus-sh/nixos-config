@@ -8,6 +8,8 @@ let
     }
   );
   nix-vscode-extensions = nix-vscode-extensions-src.extensions.x86_64-linux;
+  # Evil hack to allow this unfree extension without globally allowing unfree everything
+  # https://github.com/nix-community/nix-vscode-extensions#unfree-extensions
   resetLicense =
     drv:
     drv.overrideAttrs (prev: {
@@ -15,9 +17,6 @@ let
         license = [ ];
       };
     });
-  # Evil hack to allow this unfree extension without globally allowing unfree everything
-  # https://github.com/nix-community/nix-vscode-extensions#unfree-extensions
-  visualstudiotoolsforunity-vstuc = resetLicense nix-vscode-extensions.vscode-marketplace.visualstudiotoolsforunity.vstuc;
 in
 {
   imports = [
@@ -165,8 +164,10 @@ in
   };
 
   # Enable Bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -427,13 +428,15 @@ in
   system.stateVersion = "24.11"; # Did you read the comment?
 
   # Automatic updates
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
-  system.autoUpgrade.rebootWindow = {
-    lower = "04:00";
-    upper = "07:00";
+  sytem.autoUpgrade = {
+    enable = true;
+    allowReboot = true;
+    rebootWindow = {
+      lower = "04:00";
+      upper = "07:00";
+    };
+    flake = "/home/abus/.nixos#abusmachine";
   };
-  system.autoUpgrade.flake = "/home/abus/.nixos#abusmachine";
 
   specialisation = {
     gpu.configuration = {
