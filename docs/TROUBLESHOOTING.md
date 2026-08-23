@@ -21,3 +21,8 @@ Based on https://discourse.nixos.org/t/how-to-use-builtins-break-effectively/231
 `foobar = ((_: builtins.break _) <expr>)`).
 2. Run `nix flake check . --debugger --no-build` for NixOS issues and `nix build .# --debugger` for
 normal flake issues.
+
+# Allow Unfree VS Code Extensions
+
+Use the `resetLicense` function, based on
+[this page](https://github.com/nix-community/nix-vscode-extensions#unfree-extensions).
