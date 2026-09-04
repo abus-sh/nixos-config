@@ -428,7 +428,7 @@ in
   system.stateVersion = "24.11"; # Did you read the comment?
 
   # Automatic updates
-  sytem.autoUpgrade = {
+  system.autoUpgrade = {
     enable = true;
     allowReboot = true;
     rebootWindow = {
