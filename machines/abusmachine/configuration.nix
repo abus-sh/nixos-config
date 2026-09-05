@@ -4,7 +4,7 @@ let
     builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "95b3cd9ae6526964fe9d5b01fb28cbe4cca16cca";
+      rev = "2bdda593f9225883f9c2bb8fd4044ba440ce0564";
     }
   );
   nix-vscode-extensions = nix-vscode-extensions-src.extensions.x86_64-linux;
