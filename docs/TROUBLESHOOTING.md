@@ -32,3 +32,9 @@ Use the `resetLicense` function, based on
 Run `nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory|/proc)"` to list
 non-system GC roots. This will often be leftover `result` symlinks from `nix-build` runs. Remove
 the symlinks to let the GC run.
+
+# Gradle Dependencies (deps.json)
+
+To generate or update the dependencies file, run `$(nix-build -A <pname>.mitmCache.updateScript)`
+for the package. See [the manual](https://nixos.org/manual/nixpkgs/stable/#gradle) for more
+information.
