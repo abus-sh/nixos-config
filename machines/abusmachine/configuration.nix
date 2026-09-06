@@ -215,6 +215,7 @@ in
     bintools
     cargo
     cargo-expand
+    cogfly
     curl
     dig
     direnv

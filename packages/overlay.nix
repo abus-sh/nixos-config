@@ -22,4 +22,6 @@ self: super:
       });
     });
   };
+
+  cogfly = super.callPackage ./cogfly/package.nix { };
 }
