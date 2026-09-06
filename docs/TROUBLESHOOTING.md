@@ -26,3 +26,9 @@ normal flake issues.
 
 Use the `resetLicense` function, based on
 [this page](https://github.com/nix-community/nix-vscode-extensions#unfree-extensions).
+
+# Removing GC Roots
+
+Run `nix-store --gc --print-roots | egrep -v "^(/nix/var|/run/\w+-system|\{memory|/proc)"` to list
+non-system GC roots. This will often be leftover `result` symlinks from `nix-build` runs. Remove
+the symlinks to let the GC run.
