@@ -78,6 +78,16 @@ in
     protontricks = {
       enable = true;
     };
+    extraPackages = with pkgs; [
+      # Provides pactl, which is used somewhere in a shell script
+      pulseaudio
+
+      # Fix graphical issues with Steam
+      # https://github.com/NixOS/nixpkgs/issues/137279#issuecomment-917311661
+      pango
+      harfbuzz
+      libthai
+    ];
   };
 
   # bolt daemon
