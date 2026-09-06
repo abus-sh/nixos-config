@@ -8,16 +8,16 @@ self: super:
       version = "0.5.1";
 
       src = super.fetchFromGitHub {
-        owner = "LiveSplit";
+        owner = "AlexKnauth";
         repo = "obs-livesplit-one";
-        rev = "a5172a46186d95d50b5bc28efe4e331ea5d1091c";
-        sha256 = "sha256-aU/orE1k6oGzJGU/gFDk9QzcS2QfgvfAUskS5ghftwM=";
+        rev = "018bf332e5a180aff55d9ce606645a1e5e8aad1d";
+        sha256 = "sha256-yHAmWpte2F0yhmKJ3q0xFQJbfLCnqeOMq02bSkN1f+g=";
       };
 
       cargoDeps = old.cargoDeps.overrideAttrs (old: {
         vendorStaging = old.vendorStaging.overrideAttrs {
           inherit src;
-          outputHash = "sha256-aUtOAzBOdOWJhgS6SFzxbJZgM7skr/JOUzeAh2RJ8Es=";
+          outputHash = "sha256-KLkjxuAuVk9awewSKRqgV+UzvOAAfLYKMA0+YqdBrkE=";
         };
       });
     });
