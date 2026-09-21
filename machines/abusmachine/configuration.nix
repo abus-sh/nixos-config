@@ -232,6 +232,7 @@ in
         ghidra-golanganalyzerextension
       ]
     ))
+    gencode
     git
     git-credential-manager
     godotPackages_4_5.godot
