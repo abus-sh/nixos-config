@@ -24,4 +24,6 @@ self: super:
   };
 
   cogfly = super.callPackage ./cogfly/package.nix { };
+
+  gencode = super.callPackage ./gencode/package.nix { };
 }
