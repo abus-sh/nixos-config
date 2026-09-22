@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
   extraGroups = [
     "wheel"
-  ] ++ ifTheyExist [
+  ]
+  ++ ifTheyExist [
     "cdrom"
     "dialout"
     "docker"

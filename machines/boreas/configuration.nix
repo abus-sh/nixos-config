@@ -2,28 +2,33 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      # Human accounts
-      ../../modules/users/abus.nix
-      ../../modules/users/zach.nix
+    # Human accounts
+    ../../modules/users/abus.nix
+    ../../modules/users/zach.nix
 
-      # Service accounts
-      ../../modules/users/deploy-rs.nix
+    # Service accounts
+    ../../modules/users/deploy-rs.nix
 
-      # CA
-      ../../modules/ca.nix
+    # CA
+    ../../modules/ca.nix
 
-      # Services
-      ../../modules/services/foundry.nix
-      ../../modules/services/openssh.nix
-      ../../modules/services/forgejo-runner.nix
-    ];
+    # Services
+    ../../modules/services/foundry.nix
+    ../../modules/services/openssh.nix
+    ../../modules/services/forgejo-runner.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -33,7 +38,10 @@
   # Pick only one of the below networking options.
   networking.networkmanager.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -73,9 +81,11 @@
     (import ../../packages/overlay.nix)
   ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.strings.getName pkg) [
-    "zerotierone"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.strings.getName pkg) [
+      "zerotierone"
+    ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -97,4 +107,3 @@
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }
-

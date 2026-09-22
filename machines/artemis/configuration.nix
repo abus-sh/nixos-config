@@ -1,24 +1,29 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      # Human accounts
-      ../../modules/users/abus.nix
-      ../../modules/users/gato.nix
+    # Human accounts
+    ../../modules/users/abus.nix
+    ../../modules/users/gato.nix
 
-      # Service accounts
-      ../../modules/users/deploy-rs.nix
+    # Service accounts
+    ../../modules/users/deploy-rs.nix
 
-      # Services
-      ../../modules/services/forgejo.nix
-      ../../modules/services/nginx.nix
-      ../../modules/services/openssh.nix
-      ../../modules/services/technitium.nix
-      ../../modules/services/zerotierone.nix
-    ];
+    # Services
+    ../../modules/services/forgejo.nix
+    ../../modules/services/nginx.nix
+    ../../modules/services/openssh.nix
+    ../../modules/services/technitium.nix
+    ../../modules/services/zerotierone.nix
+  ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot.loader.grub.enable = false;
@@ -26,7 +31,10 @@
   boot.loader.generic-extlinux-compatible.enable = true;
 
   # Nix settings
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   networking.hostName = "artemis"; # Define your hostname.
 

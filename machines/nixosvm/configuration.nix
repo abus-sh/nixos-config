@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/users/abus.nix
-      ../../modules/users/deploy-rs.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/users/abus.nix
+    ../../modules/users/deploy-rs.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -15,7 +15,10 @@
 
   networking.hostName = "nixosvm"; # Define your hostname.
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Enable networking
   networking.networkmanager.enable = true;

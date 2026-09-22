@@ -14,7 +14,7 @@
     ];
   };
 
-  users.groups.foundry = {};
+  users.groups.foundry = { };
 
   systemd.services.foundry = {
     enable = true;
@@ -25,8 +25,8 @@
       Type = "simple";
       # This requires that the Foundry VTT manually be placed in ~foundry/foundry and
       # ~foundry/foundryuserdata be created.
-      ExecStart = ''/etc/profiles/per-user/foundry/bin/node /var/foundry/foundry/resources/app/main.js --dataPath=/var/foundry/foundryuserdata'';
-      User="foundry";
+      ExecStart = "/etc/profiles/per-user/foundry/bin/node /var/foundry/foundry/resources/app/main.js --dataPath=/var/foundry/foundryuserdata";
+      User = "foundry";
     };
   };
 }

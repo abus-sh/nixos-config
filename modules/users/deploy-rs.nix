@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   users.users.deploy-rs = {
@@ -11,7 +16,7 @@
     ];
   };
 
-  users.groups.deploy-rs = {};
+  users.groups.deploy-rs = { };
 
   security.sudo.extraRules = [
     {
