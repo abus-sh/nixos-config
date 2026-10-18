@@ -152,11 +152,13 @@ in
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      intel-vaapi-driver
+      vpl-gpu-rt
+      #intel-vaapi-driver
       libvdpau-va-gl
     ];
   };
   services.xserver.videoDrivers = [ "intel" ];
+  hardware.enableRedistributableFirmware = true;
 
   # Scanner config
   hardware.sane.enable = true;

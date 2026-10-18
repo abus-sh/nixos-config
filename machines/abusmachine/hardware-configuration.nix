@@ -25,7 +25,10 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "kvm.enable_virt_at_load=0" ];
+  boot.kernelParams = [
+    "kvm.enable_virt_at_load=0"
+    "i915.enable_guc=3"
+  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/0df1bb23-d38b-4c84-94f2-bd5b462eacc0";
