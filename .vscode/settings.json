@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "abus",
+        "abusdesktop",
         "abusmachine",
         "artemis",
         "boreas",

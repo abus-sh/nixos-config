@@ -1,0 +1,418 @@
+{ lib, pkgs, ... }:
+let
+  nix-vscode-extensions-src = import (
+    builtins.fetchGit {
+      url = "https://github.com/nix-community/nix-vscode-extensions";
+      ref = "refs/heads/master";
+      rev = import ./extension-rev.nix;
+    }
+  );
+  nix-vscode-extensions = nix-vscode-extensions-src.extensions.x86_64-linux;
+  # Evil hack to allow this unfree extension without globally allowing unfree everything
+  # https://github.com/nix-community/nix-vscode-extensions#unfree-extensions
+  resetLicense =
+    drv:
+    drv.overrideAttrs (prev: {
+      meta = prev.meta // {
+        license = [ ];
+      };
+    });
+in
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/users/abus.nix
+  ];
+
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 20;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # Allow emulating other architectures
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
+
+  # UEFI firmware support
+  systemd.tmpfiles.rules = [ "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware" ];
+
+  # Nix settings
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  # Nixpkgs settings
+  nixpkgs.overlays = [
+    (import ../../packages/overlay.nix)
+  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.strings.getName pkg) [
+      # List of allowed unfree packages
+      "corefonts"
+      "discord"
+      "obsidian"
+      "postman"
+      "spotify"
+      "steam"
+      "steam-original"
+      "steam-unwrapped"
+      "steam-run"
+      "zerotierone"
+    ];
+
+  # Enable nix-ld
+  programs.nix-ld.enable = true;
+
+  # Steam settings (from https://nixos.wiki/wiki/Steam)
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+    protontricks = {
+      enable = true;
+    };
+    extraPackages = with pkgs; [
+      # Provides pactl, which is used somewhere in a shell script
+      pulseaudio
+
+      # Fix graphical issues with Steam
+      # https://github.com/NixOS/nixpkgs/issues/137279#issuecomment-917311661
+      pango
+      harfbuzz
+      libthai
+    ];
+  };
+
+  # locate settings
+  services.locate = {
+    enable = true;
+    package = pkgs.plocate;
+  };
+
+  # Flatpak and add FlatHub repo (from https://nixos.wiki/wiki/Flatpak)
+  services.flatpak.enable = true;
+  systemd.services.configure-flathub-repo = {
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.flatpak ];
+    script = ''
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
+
+  networking.hostName = "abusdesktop";
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "America/New_York";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+  };
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+  # Graphics settings
+  hardware.graphics = {
+    enable = true;
+  };
+
+  # Enable sound with pipewire.
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  # Fonts
+  fonts.packages = with pkgs; [
+    corefonts
+  ];
+
+  # Install firefox.
+  programs.firefox.enable = true;
+
+  # OBS Studio
+  programs.obs-studio = {
+    enable = true;
+
+    package = pkgs.obs-studio;
+
+    plugins = with pkgs.obs-studio-plugins; [
+      input-overlay
+      obs-backgroundremoval
+      obs-gstreamer
+      obs-livesplit-one
+      obs-pipewire-audio-capture
+      obs-vkcapture
+      wlrobs
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    archipelago
+    bintools
+    cargo
+    cargo-expand
+    cogfly
+    curl
+    dig
+    direnv
+    discord
+    docker-credential-helpers
+    dos2unix
+    element-desktop
+    ffmpeg
+    file
+    flatpak
+    gcc
+    (ghidra.withExtensions (
+      p: with p; [
+        ghidra-golanganalyzerextension
+      ]
+    ))
+    gencode
+    git
+    git-credential-manager
+    godotPackages_4_7.godot
+    gnumake
+    hunspell
+    hunspellDicts.en_US
+    imhex
+    iw
+    jq
+    kdePackages.kcalc
+    kdePackages.kdeconnect-kde
+    kdePackages.kdeplasma-addons
+    libreoffice-qt6-fresh
+    libsecret
+    mkcert
+    neo-cowsay
+    neovim
+    nmap
+    nix-index
+    nixfmt
+    obsidian
+    openssl
+    p7zip
+    pciutils
+    pinentry-qt
+    pinta
+    postman
+    prismlauncher
+    proton-vpn
+    python313
+    ripgrep
+    rust-analyzer
+    rustc
+    sl
+    spotify
+    sqlite
+    tmux
+    tree
+    traceroute
+    unixtools.xxd
+    vlc
+    whois
+    wireshark
+    wget
+    wl-clipboard
+    xdg-utils
+
+    # VS Code extensions
+    (vscode-with-extensions.override {
+      vscode = vscodium;
+      vscodeExtensions =
+        with nix-vscode-extensions.open-vsx;
+        [
+          dbaeumer.vscode-eslint
+          editorconfig.editorconfig
+          jnoortheen.nix-ide
+          mkhl.direnv
+          ms-pyright.pyright
+          ms-python.debugpy
+          ms-python.python
+          ms-toolsai.jupyter
+          tamasfe.even-better-toml
+          vadimcn.vscode-lldb
+          vivaxy.vscode-conventional-commits
+        ]
+        ++ [
+          vscode-extensions.rust-lang.rust-analyzer
+        ];
+    })
+  ];
+
+  # Aliases
+  environment.shellAliases = {
+    code = "codium";
+    la = "ls -A";
+    ll = "ls -l";
+    llh = "ls -lh";
+    lla = "ls -lA";
+    llah = "ls -lAh";
+    open = "xdg-open";
+    vim = "nvim";
+  };
+
+  # Environment variables
+  environment.sessionVariables = {
+    EDITOR = "codium -w";
+  };
+
+  # Enable VirtualBox
+  virtualisation.virtualbox = {
+    host = {
+      enable = true;
+    };
+  };
+
+  # Enable Docker
+  virtualisation.docker.enable = true;
+
+  # ZeroTier
+  services.zerotierone = {
+    enable = true;
+  };
+
+  # GPG
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-qt;
+    enableSSHSupport = true;
+  };
+
+  security.pki.certificates = [
+    ''
+      mkcert CA
+      =========
+      -----BEGIN CERTIFICATE-----
+      MIIEpjCCAw6gAwIBAgIRAPhZxyxD2kEMoVZ/vnQDEQcwDQYJKoZIhvcNAQELBQAw
+      azEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSAwHgYDVQQLDBdhYnVz
+      QGFidXNtYWNoaW5lIChBYnVzKTEnMCUGA1UEAwwebWtjZXJ0IGFidXNAYWJ1c21h
+      Y2hpbmUgKEFidXMpMB4XDTI1MDgwNjIwMDYxN1oXDTM1MDgwNjIwMDYxN1owazEe
+      MBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSAwHgYDVQQLDBdhYnVzQGFi
+      dXNtYWNoaW5lIChBYnVzKTEnMCUGA1UEAwwebWtjZXJ0IGFidXNAYWJ1c21hY2hp
+      bmUgKEFidXMpMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAq6daNnr6
+      KX7Yoh7RjfPglMScWCJRXdakWvHE/DHG5c+e7195JqoBF06kf1QkAnclvWyEK8Wy
+      nmzDcKSwgyi4sQgA/McOB4ffZEYzHX7WTyqPs+my8n7Vjes1mhn+8yIhbZ57GHwP
+      9EWVod3+viaGw5OWVDiPDJJzcvbFJKatmI9viZMQO/adCvgEmtEddxMlYn9tu2AH
+      Od4vHNzUT8gtU1RZr1wGbm7Bj2vaWM/zDT5bWLvU8wEJWygXrjoMMlIdk/27pGnk
+      Rdd/7DzSe9tUOnJHfD93Cy4ZdZLYkp/XJI+RYukFup0Ze7CYmulQLRhVpOUonnyX
+      HUwW+iYkugncOpZ+5/NFoz+zOkzVLbSOxuMg0bmfw+O1Xk0rC2AXCPE+7xcpG6ch
+      Tyz/zZuEOn5SgIQxygsuB6ZXhHPL56h7M6vC1xDq1YCvg6IiHS6nsFcf/xaAD3tq
+      eynt+vqFRLcIABXZkwboclm8lb3Sfj2wZNWNPXtp4/JrcfM9ok8Gj0tjAgMBAAGj
+      RTBDMA4GA1UdDwEB/wQEAwICBDASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQW
+      BBTj2BIruuNDFyPSVHvqurGHjdNCVzANBgkqhkiG9w0BAQsFAAOCAYEAOpNyRto7
+      y/ZOZi05R2K/DPMNEs+Btk0faS7d7Zr7+N66aXjPT/JgN9o08sidqtswBCerCa7y
+      bNCbqUrvlZhdcsf9BXOC9GocnZCF7b/iJ0HrbtRRq3VMDUw27FsKQJATcZSANln+
+      QjlMltjLHRjjFTzYtYeHtOkXPoaTTqqGx8+yoZI9pz8flxIyj1hL/LjlKtTHhhwU
+      K9kZLqtu2STbBLdgA/la2DfP0iytQLRfRcVnZ011gOyU7NAFoDQOPJ3smnYP8eqj
+      NCmrSwNN6fYCqYe6zS7rXXHzJ7SDEHGgEVSp0gfo3SzLZJIWYJ/dsvnYXwZog+ce
+      zeOVXL/M4xXtbyYppsw3ad9ml2JwpMm5LDbDyVPWCz/NrNfZkLQLm3Zjium+6oNd
+      H4t2zg1wz0tEgmfJZQE1K8gPgGK82pQ3k7iq4V9W3Qn9CctDlI3xmYStKiNiFY3i
+      8AaP8LJv5J9x+aYm/OZu7OAHK5ECyxt8C0wjl/X88jsegQthcwP2hm9h
+      -----END CERTIFICATE-----
+    ''
+  ];
+
+  networking.firewall.interfaces.wlp0s20f3 = {
+    allowedTCPPorts = [
+      # Allow TCP traffic on port 8000 for Python http.server
+      8000
+    ];
+    allowedTCPPortRanges = [
+      {
+        # Allow TCP traffic on ports 1714-1764 for KDE Connect
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        # Allow UDP traffic on ports 1714-1764 for KDE Connect
+        from = 1714;
+        to = 1764;
+      }
+    ];
+  };
+
+  # Allow TCP and UDP traffic on VirtualBox interface
+  networking.firewall.interfaces.vboxnet0 = {
+    allowedTCPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
+  };
+
+  # Allow TCP and UDP traffic on Docker interface
+  networking.firewall.interfaces.docker0 = {
+    allowedTCPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 0;
+        to = 65535;
+      }
+    ];
+  };
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "26.05"; # Did you read the comment?
+
+  # Automatic updates
+  #system.autoUpgrade = {
+  #  enable = true;
+  #  allowReboot = true;
+  #  rebootWindow = {
+  #    lower = "04:00";
+  #    upper = "07:00";
+  #  };
+  #  flake = "/home/abus/.nixos#abusdesktop";
+  #};
+}
