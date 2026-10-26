@@ -344,7 +344,7 @@ in
     ''
   ];
 
-  networking.firewall.interfaces.wlp0s20f3 = {
+  networking.firewall.interfaces.wlp7s0 = {
     allowedTCPPorts = [
       # Allow TCP traffic on port 8000 for Python http.server
       8000
