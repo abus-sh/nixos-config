@@ -94,9 +94,11 @@ in
     package = pkgs.plocate;
   };
 
-  # Flatpak and add FlatHub repo (from https://nixos.wiki/wiki/Flatpak)
+  # Flatpak and add FlatHub repo
+  # https://wiki.nixos.org/wiki/Flatpak#Configure_Repositories_Globally
   services.flatpak.enable = true;
   systemd.services.configure-flathub-repo = {
+    after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.flatpak ];
     script = ''
