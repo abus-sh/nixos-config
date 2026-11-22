@@ -231,6 +231,7 @@ in
     prismlauncher
     proton-vpn
     python313
+    r2modman
     ripgrep
     rust-analyzer
     rustc
