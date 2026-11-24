@@ -235,6 +235,7 @@ in
     ripgrep
     rust-analyzer
     rustc
+    rustfmt
     sl
     spotify
     sqlite
